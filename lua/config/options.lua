@@ -10,25 +10,26 @@ vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#1f1f1f' })
 vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#1f1f1f' })
 vim.api.nvim_set_hl(0, 'SignColumn', { bg = '#282c34' })
 
-vim.api.nvim_set_hl(0, "TermNormal", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+-- vim.api.nvim_set_hl(0, "TermNormal", { bg = "#000000" })
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
 
 -- No format on save.
 vim.g.autoformat = false
 
 vim.opt.colorcolumn = "80"
 
+vim.opt.scrolloff = 7
+
 vim.opt.updatetime = 5000
 
 vim.opt.virtualedit:append("block,onemore")
 
-
 -- GUI ------------------------------------------
 
+-- Put anything you want to happen only in Neovide here
 if vim.g.neovide then
   vim.opt.guifont = { "FiraCode Nerd Font", ":h12" }
-    -- Put anything you want to happen only in Neovide here
   vim.g.neovide_cursor_animation_length = 0.03
   vim.g.neovide_cursor_trail_size = 0.08
 end

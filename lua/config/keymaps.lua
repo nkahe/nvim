@@ -2,7 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- Helper functions -----------------------------
+-- Helper functions ---------------------------------------
 
 -- Create key mappings
 local function map(mode, source_key, target_key, opts)
@@ -20,11 +20,19 @@ local function mapAll(key, command, opts)
   vim.keymap.set({"i", "s"}, key, "<C-o>" .. command, opts)
 end
 
+-- Whichkey  ----------------------------------------------
 
--- Registers ------------------------------------
+local wk = require("which-key")
 
--- TODO: <leader>gr ei enää ole LSP referencelle.
+wk.add({
+  { "<Leader>i", group = "insert" },
+})
+
+-- Registers ----------------------------------------------
+
+-- TODO: gr ei enää ole LSP referencelle.
 -- rekistereitä pitäisi voida muuttaa.
+-- select clipboard
 
 -- x is same as d so it actually cuts to clipboard.
 map({'n', 'x'}, "x", "d", { desc = "Cut" })
@@ -42,7 +50,7 @@ map({"n", "x"}, "<Del>", '"_x')
 
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
 
--- Misc -----------------------------------------
+-- Misc ---------------------------------------------------
 
 -- Map Alt-Left|Right to move previous / next buffer
 mapAll("<M-Right>", ":bnext<CR>", { silent = true })
@@ -51,31 +59,55 @@ mapAll("<M-Left>", ":bprevious<CR>", { silent = true })
 -- In nordic keyboard layout make some characters easier to type
 -- vim.keymap.set doesn't work.
 vim.api.nvim_set_keymap("n", "ö", "[", { noremap = false, silent = false })
--- vim.api.nvim_set_keymap("n", "ö", "[", { noremap = false, silent = false })
 vim.api.nvim_set_keymap("n", "ä", "]", { noremap = false, silent = false })
-vim.api.nvim_set_keymap("n", "¤", "$", { noremap = false, silent = false })
+map({"n", "o", "x"}, "¤", "$", { noremap = false, silent = false })
 
--- Do begin empty without continuations and commenting.
 map("n", "<Leader>O", "O<Esc>^Da", { desc = "Begin empty line up."})
 map("n", "<Leader>o", "o<Esc>^Da", { desc = "Begin empty line down."})
+map("i", "<S-CR>", "<Esc>o<Esc>^Da", { desc = "Begin empty line down."})
 
--- Same but stay in normal mode.
-map("n", "<Leader>O", "O<Esc>^Da<Esc>", { desc = "Add empty line up."})
-map("n", "<Leader>o", "o<Esc>^Da<Esc>", { desc = "Add empty line up."})
+-- TODO voisi lukumäärän ottaa vastaan.
+-- Add empty lines up/down while cursor and mode stays.
 
--- Add common shortcuts
+-- vim.api.nvim_set_keymap("n", "<Leader>iO", "m`O<Esc>``",
+--   { desc = "Add empty line up.", noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<Leader>io", "m`o<Esc>``",
+--   { desc = "Add empty line down.", noremap = true, silent = true })
+
+-- Pitäisi olla parempi kuin yllä.
+-- vim.api.nvim_set_keymap("n", "<Leader>io", ":set paste<CR>m`o<Esc>``:set nopaste<CR>",
+--   { desc = "Add empty line down.", noremap = true, silent = true })
+
+-- Cursor moves along.
+-- vim.api.nvim_set_keymap("n", "<Leader>io", ":set paste<CR>o<Esc>:set nopaste<CR>",
+--   { desc = "Add empty line down.", noremap = true, silent = true })
+
+-- Add empty lines before and after cursor line
+vim.keymap.set('n', '<Leader>iO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
+ { desc = "Add empty line up", noremap = true, silent = true })
+
+vim.keymap.set('n', '<Leader>io', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>",
+ { desc = "Add empty line down", noremap = true, silent = true })
+
+  -- Add common shortcuts from GUI apps.
 map("i", '<C-BS>', '<C-w>', { noremap = true, silent = true})
 map("i", '<C-Del>', 'dw', { noremap = true, silent = true})
 map("n", '<BS>', '"_X', { noremap = true, silent = true})
 
 -- vim.keymap.set("n", "<C-P>", "<cmd>LazyVimFileFinder<cr>", { noremap = true, silent = true })
--- vim.keymap.set("n", "<C-P>", "<leader>ff")48k
+-- vim.keymap.set("n", "<C-P>", "<leader>ff")
 
 -- Restore defaults
 vim.keymap.set("n", "H", "H", { desc = "Move cursor to top of screen" })
 vim.keymap.set("n", "L", "L", { desc = "Move cursor to bottom of screen" })
 
--- Minor tweaks ---------------------------------
+-- Neovide GUI
+if vim.g.neovide then
+  -- Paste in command mode
+  vim.keymap.set('c', '<C-v>', '<C-R>+')
+end
+
+-- Minor tweaks ------------------------------------------
 
 -- <CR> to open links in help.
 vim.api.nvim_create_autocmd("FileType", {
@@ -92,7 +124,3 @@ map("x", "<S-Up>", "k")
 map("x", "<S-Right>", "l")
 map("x", "<S-Left>", "h")
 
-if vim.g.neovide then
-  -- Paste in command mode
-  vim.keymap.set('c', '<C-v>', '<C-R>+')
-end
