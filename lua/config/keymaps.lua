@@ -22,11 +22,11 @@ end
 
 -- Whichkey  ----------------------------------------------
 
-local wk = require("which-key")
+-- local wk = require("which-key")
 
-wk.add({
-  { "<Leader>i", group = "insert" },
-})
+-- wk.add({
+--   { "<Leader>i", group = "insert" },
+-- })
 
 -- Registers ----------------------------------------------
 
@@ -100,6 +100,12 @@ map("n", '<BS>', '"_X', { noremap = true, silent = true})
 -- Restore defaults
 vim.keymap.set("n", "H", "H", { desc = "Move cursor to top of screen" })
 vim.keymap.set("n", "L", "L", { desc = "Move cursor to bottom of screen" })
+
+-- Change cwd to match current buffer's directory
+vim.api.nvim_create_user_command('Cdb', function()
+  vim.cmd('cd ' .. vim.fn.expand('%:p:h'))
+  vim.cmd('pwd');
+end, {})
 
 -- Neovide GUI
 if vim.g.neovide then
