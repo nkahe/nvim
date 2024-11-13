@@ -1,23 +1,20 @@
 
--- Assuming you're in your LazyVim setup file, add the configuration under your "which-key" setup
+-- if true then return {} end
+
 return {
   "folke/which-key.nvim",
-  config = function()
-    local wk = require("which-key")
-
-    -- Define a new group under <Leader>i
-    wk.add({
-      { "<Leader>i", name = "+insert" },
-    })
-
-    -- You can also add other groups or mappings here as needed
-  end,
+  opts = {
+    spec = {
+      {
+        { "<Leader>i", group = "insert" },
+      }
+    }
+  }
 }
 
-
+-- in normal file could be done like this
 
 -- local wk = require("which-key")
-
 -- wk.add({
 --   { "<Leader>i", group = "insert" },
 -- })
