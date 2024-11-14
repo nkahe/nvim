@@ -36,32 +36,40 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
--- vim.api.nvim_create_autocmd("TermOpen", {
---   pattern = "*",
---   callback = function()
---     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
---   end,
--- })
 
+local function get_app_name()
+  local appName = "Neovim"
+  if vim.g.neovide then
+    appName = "Neovide"
+  end
+  return appName
+end
 
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "terminal",  -- This triggers for terminal buffers
---   callback = function()
---     if vim.fn.win_gettype() == "popup" then
---       -- Set the background color for floating terminal windows
---       vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })  -- Set your color
---     end
---   end,
--- })
+-- Function to update the Yakuake terminal tab title
+local function update_yakuake_title()
+  -- Get the current buffer name (just the file name, not the full path)
+  local buffer_name = vim.fn.expand('%:t')
 
--- vim.api.nvim_create_autocmd("BufWinEnter", {
---   pattern = "term://*",  -- Triggers on terminal buffers
---   callback = function()
---     -- Check if the window is a floating window
---     if vim.fn.win_gettype() == "popup" then
---       -- Set the background color for floating terminals
---       vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })  -- Set the desired color
---     end
---   end,
--- })
+  -- If no file is open, we just set the title to "Neovim" or similar
+  if buffer_name == "" then
+    buffer_name = "Neovim"
+  end
+
+  -- Set the Yakuake tab title using the session_id and buffer_name
+  vim.fn.system(string.format("qdbus org.kde.yakuake /yakuake/tabs setTabTitle %s \"%s\"", Session_id, buffer_name))
+end
+
+-- Get the current Yakuake session id using qdbus
+Session_id = vim.fn.system("qdbus org.kde.yakuake /yakuake/sessions org.kde.yakuake.activeSessionId")
+
+-- Trim any extra whitespace from the session_id
+Session_id = vim.fn.trim(Session_id)
+
+if Session_id ~= "" then
+  -- Autocmd to update Yakuake title on buffer changed
+  vim.api.nvim_create_autocmd({"BufEnter", "BufWritePost"}, {
+    callback = update_yakuake_title
+  })
+end
+
 
