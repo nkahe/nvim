@@ -5,14 +5,12 @@
 -- vim.opt.clipboard = "unnamedplus"
 
 -- Color overrides
-vim.api.nvim_set_hl(0, 'Normal', {bg = '#1b1b1b'})
-vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#1f1f1f' })
-vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#1f1f1f' })
-vim.api.nvim_set_hl(0, 'SignColumn', { bg = '#282c34' })
 
--- vim.api.nvim_set_hl(0, "TermNormal", { bg = "#000000" })
--- vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+-- TODO laita toimimaan spec -tiedostosta.
+-- vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#1f1f1f' })
+-- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1f1f1f" })
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "#1b1b1b" })
+-- vim.api.nvim_set_hl(0, "SignColumn", { bg = "#282c34" })
 
 -- No format on save.
 vim.g.autoformat = false
@@ -50,23 +48,6 @@ vim.opt.virtualedit:append("block,onemore")
 --   },
 -- })
 
--- -- Set the diagnostic configuration for Neovim
--- vim.diagnostic.config({
---   virtual_text = false,  -- Disable inline virtual text
---   signs = true,          -- You can still see the signs in the gutter (e.g., warning/error icons)
---   underline = true,      -- Optionally underline the lines with diagnostics
---   update_in_insert = true,  -- Update diagnostics while typing
---   float = {
---     focusable = false,  -- Makes the floating window non-interactive
---     border = "rounded",  -- Add a border around the floating window
---     source = true,   -- Show the source of the diagnostic (e.g., LSP server)
---     severity_sort = true,  -- Sort diagnostics by severity
---     max_width = 80,         -- Optional: Restrict max width of the floating window
---     relative = "cursor",   -- Position relative to the cursor
---     col = 80,              -- Start the floating diagnostic at column 80
---   },
--- })
-
 -- Optionally you can use an autocommand to automatically open floating diagnostics for LSP errors
 -- vim.cmd([[
 --   autocmd CursorHold * lua vim.diagnostic.open_float({scope="line"})
@@ -74,9 +55,12 @@ vim.opt.virtualedit:append("block,onemore")
 
 -- GUI ------------------------------------------
 
--- Put anything you want to happen only in Neovide here
+-- Neovide
 if vim.g.neovide then
   vim.opt.guifont = { "FiraCode Nerd Font", ":h12" }
   vim.g.neovide_cursor_animation_length = 0.03
   vim.g.neovide_cursor_trail_size = 0.08
+
+  vim.opt.title = true
+  vim.opt.titlestring = "Neovide - LazyVim"
 end
