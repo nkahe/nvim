@@ -20,14 +20,6 @@ local function mapAll(key, command, opts)
   vim.keymap.set({"i", "s"}, key, "<C-o>" .. command, opts)
 end
 
--- Whichkey  ----------------------------------------------
-
--- local wk = require("which-key")
-
--- wk.add({
---   { "<Leader>i", group = "insert" },
--- })
-
 -- Registers ----------------------------------------------
 
 -- TODO: gr ei enää ole LSP referencelle.
@@ -63,7 +55,9 @@ mapAll("<M-Left>", ":bprevious<CR>", { silent = true })
 -- vim.keymap.set doesn't work
 vim.api.nvim_set_keymap("n", "ö", "[", { noremap = false, silent = false })
 vim.api.nvim_set_keymap("n", "ä", "]", { noremap = false, silent = false })
-map({"n", "o", "x"}, "¤", "$", { noremap = false, silent = false })
+map({"n", "o", "x"}, "¤", "$", { noremap = false, silent = false, desc = "which_key_ignore"})
+
+map({"n", "t"}, "<C-§>", "<CMD>lua Snacks.terminal.toggle()<CR>")
 
 map("n", "<Leader>O", "O<Esc>^Da", { desc = "Begin empty line up."})
 map("n", "<Leader>o", "o<Esc>^Da", { desc = "Begin empty line down."})
@@ -89,7 +83,7 @@ map("i", "<S-CR>", "<Esc>o<Esc>^Da", { desc = "Begin empty line down."})
 vim.keymap.set('n', '<Leader>iO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
  { desc = "Add empty line up", silent = true })
 
-vim.keymap.set('n', '<Leader>io', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>",
+vim.keymap.set('n', '<Leader>io', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
  { desc = "Add empty line down", silent = true })
 
 -- Add common shortcuts from GUI apps.

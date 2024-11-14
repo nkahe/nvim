@@ -32,14 +32,36 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = config_dir_pattern,
   callback = function(args)
     vim.cmd("source " .. args.file)
-    print("Reloaded " .. args.file)
+    print("Sourced " .. args.file)
   end,
 })
 
--- TODO: Doesn't work
-vim.api.nvim_create_autocmd("TermOpen", {
-  pattern = "*",
-  callback = function()
-    vim.api.nvim_set_hl(0, "TermNormal", { bg = "#000000" })
-  end,
-})
+-- vim.api.nvim_create_autocmd("TermOpen", {
+--   pattern = "*",
+--   callback = function()
+--     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+--   end,
+-- })
+
+
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "terminal",  -- This triggers for terminal buffers
+--   callback = function()
+--     if vim.fn.win_gettype() == "popup" then
+--       -- Set the background color for floating terminal windows
+--       vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })  -- Set your color
+--     end
+--   end,
+-- })
+
+-- vim.api.nvim_create_autocmd("BufWinEnter", {
+--   pattern = "term://*",  -- Triggers on terminal buffers
+--   callback = function()
+--     -- Check if the window is a floating window
+--     if vim.fn.win_gettype() == "popup" then
+--       -- Set the background color for floating terminals
+--       vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })  -- Set the desired color
+--     end
+--   end,
+-- })
+
