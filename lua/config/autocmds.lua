@@ -36,6 +36,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
+-- TODO: Doesn't work
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
   callback = function()
