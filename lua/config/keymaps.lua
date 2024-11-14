@@ -44,6 +44,9 @@ map({"n", "x"}, "d", '""d')
 map({"n", "x"}, "dd", '""dd')
 map({"n", "x"}, "D", '""D')
 
+-- Paste and indent
+-- vim.keymap.set({ "n", "v" }, "p", "p`[v`]=`]")
+
 -- "-" and <Del> to delete single character(s) without yanking. Also 'dl|h' works.
 map({"n", "x"}, "-", '"_x', { desc = "Delete character" })
 map({"n", "x"}, "<Del>", '"_x')
@@ -57,7 +60,7 @@ mapAll("<M-Right>", ":bnext<CR>", { silent = true })
 mapAll("<M-Left>", ":bprevious<CR>", { silent = true })
 
 -- In nordic keyboard layout make some characters easier to type
--- vim.keymap.set doesn't work.
+-- vim.keymap.set doesn't work
 vim.api.nvim_set_keymap("n", "ö", "[", { noremap = false, silent = false })
 vim.api.nvim_set_keymap("n", "ä", "]", { noremap = false, silent = false })
 map({"n", "o", "x"}, "¤", "$", { noremap = false, silent = false })
@@ -84,15 +87,15 @@ map("i", "<S-CR>", "<Esc>o<Esc>^Da", { desc = "Begin empty line down."})
 
 -- Add empty lines before and after cursor line
 vim.keymap.set('n', '<Leader>iO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
- { desc = "Add empty line up", noremap = true, silent = true })
+ { desc = "Add empty line up", silent = true })
 
 vim.keymap.set('n', '<Leader>io', "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>",
- { desc = "Add empty line down", noremap = true, silent = true })
+ { desc = "Add empty line down", silent = true })
 
-  -- Add common shortcuts from GUI apps.
-map("i", '<C-BS>', '<C-w>', { noremap = true, silent = true})
-map("i", '<C-Del>', 'dw', { noremap = true, silent = true})
-map("n", '<BS>', '"_X', { noremap = true, silent = true})
+-- Add common shortcuts from GUI apps.
+map("i", '<C-BS>', '<C-w>', { silent = true })
+map("i", '<C-Del>', '<C-o>dw', { silent = true })
+map("n", '<BS>', '"_X', { silent = true })
 
 -- vim.keymap.set("n", "<C-P>", "<cmd>LazyVimFileFinder<cr>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<C-P>", "<leader>ff")
@@ -104,27 +107,31 @@ vim.keymap.set("n", "L", "L", { desc = "Move cursor to bottom of screen" })
 -- Change cwd to match current buffer's directory
 vim.api.nvim_create_user_command('Cdb', function()
   vim.cmd('cd ' .. vim.fn.expand('%:p:h'))
-  vim.cmd('pwd');
+  vim.cmd('pwd')
 end, {})
 
 -- Neovide GUI
 if vim.g.neovide then
-  -- Paste in command mode
+  -- Clipboard commands similar to terminals.
   vim.keymap.set('c', '<C-v>', '<C-R>+')
+  vim.keymap.set('c', '<C-S-v>', '<C-R>+')
+  vim.keymap.set('c', '<S-Insert>', '<C-R>*')
+  map({ 'i' }, '<C-S-v>', '<C-o>"+P')
+  map({ 'i' }, '<C-S-Insert>', '<C-o>"*P')
+  map({ 's', "x" }, '<C-S-c>', '"+y')
 end
 
 -- Minor tweaks ------------------------------------------
 
--- <CR> to open links in help.
+-- <CR> to open links in help in addition to ^]
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "help",
   callback = function()
-    vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-]>",
-      { noremap = true, silent = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-]>", { silent = true })
   end,
 })
 
--- Shift+Down and Shift+Up to move down and up in Visual mode
+-- Shift+Down and Shift+Up to just move down and up in Visual mode
 map("x", "<S-Down>", "j")
 map("x", "<S-Up>", "k")
 map("x", "<S-Right>", "l")
