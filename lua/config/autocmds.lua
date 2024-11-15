@@ -66,7 +66,8 @@ local function update_yakuake_title()
   end
 
   -- Set the Yakuake tab title using the session_id and buffer_name
-  vim.fn.system(string.format("qdbus org.kde.yakuake /yakuake/tabs setTabTitle %s \"%s\"", Session_id, buffer_name))
+  vim.fn.system(string.format("qdbus org.kde.yakuake /yakuake/tabs setTabTitle %s \"%s\"",
+    Session_id, buffer_name))
 end
 
 -- Get the current Yakuake session id using qdbus
@@ -82,7 +83,7 @@ if Session_id ~= "" then
   })
 end
 
--- Text formats. ftplugin file for Markdown didn't work.
+-- Text formats. ftplugin file for Markdown didn't work. on oletuksena.
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown", "txt" },
   callback = function()
