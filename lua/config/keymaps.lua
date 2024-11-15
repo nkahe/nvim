@@ -7,18 +7,11 @@
 -- Create key mappings
 local function map(mode, source_key, target_key, opts)
   -- Default options if not provided
-  -- opts = opts or { noremap = true, silent = true }
+  -- opts = opts or { silent = true }
   vim.keymap.set(mode, source_key, target_key, opts)
   -- vim.api.nvim_set_keymap(mode, source_key, target_key, opts)
 end
 
--- Create mappings in most common modes
-local function mapAll(key, command, opts)
-  -- Default options if not provided
-  -- opts = opts or { noremap = true, silent = true }
-  vim.keymap.set({"n", "x"}, key, command, opts)
-  vim.keymap.set({"i", "s"}, key, "<C-o>" .. command, opts)
-end
 
 -- Registers ----------------------------------------------
 
@@ -42,21 +35,35 @@ map({"n", "x"}, "D", '""D')
 -- "-" and <Del> to delete single character(s) without yanking. Also 'dl|h' works.
 map({"n", "x"}, "-", '"_x', { desc = "Delete character" })
 map({"n", "x"}, "<Del>", '"_x')
+map("n", '<BS>', '"_X', { silent = true })
 
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
 
+-- Move lines --------------------------------------------
+
+-- Alt mappings can sometimes trigger with <esc> when using in terminal.
+map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
+map("n", "<A-Up>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
+map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
+map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
+map("v", "<A-Down>", "<cmd><C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
+map("v", "<A-Up>", "<cmd><C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
+
 -- Misc ---------------------------------------------------
 
--- Map Alt-Left|Right to move previous / next buffer
-mapAll("<M-Right>", ":bnext<CR>", { silent = true })
-mapAll("<M-Left>", ":bprevious<CR>", { silent = true })
+-- Focus previous / next buffer
+map({"n", "i"}, "<M-Right>", "<cmd>bnext<CR>", { silent = true })
+map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
+
+-- map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
+map("n", "<M-l>", "<cmd>bnext<CR>", { silent = true })
+map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
 
 -- In nordic keyboard layout make some characters easier to type
 -- vim.keymap.set doesn't work
 vim.api.nvim_set_keymap("n", "ö", "[", { noremap = false, silent = false })
 vim.api.nvim_set_keymap("n", "ä", "]", { noremap = false, silent = false })
 map({"n", "o", "x"}, "¤", "$", { noremap = false, silent = false, desc = "which_key_ignore"})
-
 map({"n", "t"}, "<C-§>", "<CMD>lua Snacks.terminal.toggle()<CR>")
 
 map("n", "<Leader>O", "O<Esc>^Da", { desc = "Begin empty line up."})
@@ -89,7 +96,6 @@ vim.keymap.set('n', '<Leader>io', "<Cmd>call append(line('.'), repeat([''], v:co
 -- Add common shortcuts from GUI apps.
 map("i", '<C-BS>', '<C-w>', { silent = true })
 map("i", '<C-Del>', '<C-o>dw', { silent = true })
-map("n", '<BS>', '"_X', { silent = true })
 
 -- vim.keymap.set("n", "<C-P>", "<cmd>LazyVimFileFinder<cr>", { noremap = true, silent = true })
 -- vim.keymap.set("n", "<C-P>", "<leader>ff")
@@ -104,7 +110,9 @@ vim.api.nvim_create_user_command('Cdb', function()
   vim.cmd('pwd')
 end, {})
 
--- Neovide GUI
+
+-- GUI --------------------------------------------------
+
 if vim.g.neovide then
   -- Clipboard commands similar to terminals.
   vim.keymap.set('c', '<C-v>', '<C-R>+')
@@ -125,7 +133,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Shift+Down and Shift+Up to just move down and up in Visual mode
+-- Accidentally pressin Shift+Down and Shift+Up to just move down and up in Visual mode
 map("x", "<S-Down>", "j")
 map("x", "<S-Up>", "k")
 map("x", "<S-Right>", "l")
