@@ -28,7 +28,7 @@ vim.opt.colorcolumn = "80"
 -- })
 
 vim.opt.scrolloff = 7
-
+vim.opt.spell = false
 vim.opt.updatetime = 5000
 
 -- Cursor can go paste last character and after block
