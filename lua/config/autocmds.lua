@@ -26,23 +26,33 @@
 
 
 -- Watches for saves specifically in the `lua/config/` directory
-local config_dir_pattern = vim.fn.stdpath("config") .. "/lua/config/*.lua"
+-- local config_dir_pattern = vim.fn.stdpath("config") .. "/lua/config/*.lua"
+
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--   pattern = config_dir_pattern,
+--   callback = function(args)
+--     vim.cmd("source " .. args.file)
+--     print("Sourced " .. args.file)
+--   end,
+-- })
+
+
+-- Watches for saves specifically in the `lua/config/keymaps.lua` and `lua/config/options.lua` files
+local config_path = vim.fn.stdpath("config") .. "/lua/config/"
 
 vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = config_dir_pattern,
+  pattern = { config_path .. "keymaps.lua", config_path .. "options.lua" },
   callback = function(args)
     vim.cmd("source " .. args.file)
     print("Sourced " .. args.file)
   end,
 })
 
-
-local function get_app_name()
-  local appName = "Neovim"
+local function get_terminal_name()
   if vim.g.neovide then
-    appName = "Neovide"
+    terminalName = "Neovide"
   end
-  return appName
+  return terminalName
 end
 
 -- Function to update the Yakuake terminal tab title
@@ -72,4 +82,10 @@ if Session_id ~= "" then
   })
 end
 
-
+-- Text formats. ftplugin file for Markdown didn't work.
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "txt" },
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})
