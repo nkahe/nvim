@@ -27,6 +27,7 @@ vim.opt.colorcolumn = "80"
 --   },
 -- })
 
+vim.opt.selectmode = "key"
 vim.opt.scrolloff = 7
 vim.opt.spell = false
 vim.opt.updatetime = 5000
