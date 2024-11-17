@@ -145,8 +145,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- -- Accidentally pressin Shift+{arrow} to just move cursor in Visual mode
-map("x", "<S-Down>", "j")
-map("x", "<S-Up>", "k")
-map("x", "<S-Right>", "l")
-map("x", "<S-Left>", "h")
+-- map("x", "<S-Down>", "j")
+-- map("x", "<S-Up>", "k")
+-- map("x", "<S-Right>", "l")
+-- map("x", "<S-Left>", "h")
 

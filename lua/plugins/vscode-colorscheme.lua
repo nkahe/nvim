@@ -3,13 +3,14 @@ return {
   {
     "Mofiqul/vscode.nvim",
     opts = {
+      -- NOTE: mini.hipatterns doesn't hilight these but still works.
       color_overrides = {
 
         -- Normal & signcolumn bg
         vscBack = '#1b1b1b',
 
         -- Cursorline, vertical ColorColumn
-        vscCursorDarkDark = '#1f1f1f',
+        vscCursorDarkDark = "#1f1f1f",
 
         -- Floating windowws, terminals etc.
         vscPopupBack = '#262626'
