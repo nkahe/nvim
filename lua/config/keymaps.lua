@@ -20,21 +20,21 @@ end
 -- select clipboard
 
 -- x is same as d so it actually cuts to clipboard.
-map({'n', 'x'}, "x", "d", { desc = "Cut" })
-map({"n", "x"}, "xx", "dd", { desc = "Cut" })
-map({"n", "x"}, "X", "D", { desc = "Cut end of line" })
+map({''}, "x", "d", { desc = "Cut" })
+map({""}, "xx", "dd", { desc = "Cut" })
+map({""}, "X", "D", { desc = "Cut end of line" })
 
 -- d to use unnamed register so it doesn't populate clipboard.
-map({"n", "x"}, "d", '""d')
-map({"n", "x"}, "dd", '""dd')
-map({"n", "x"}, "D", '""D')
+map({""}, "d", '""d')
+map({""}, "dd", '""dd')
+map({""}, "D", '""D')
 
 -- Paste and indent
 -- vim.keymap.set({ "n", "v" }, "p", "p`[v`]=`]")
 
 -- "-" and <Del> to delete single character(s) without yanking. Also 'dl|h' works.
-map({"n", "x"}, "-", '"_x', { desc = "Delete character" })
-map({"n", "x"}, "<Del>", '"_x')
+map({""}, "-", '"_x', { desc = "Delete character" })
+map({""}, "<Del>", '"_x')
 map("n", '<BS>', '"_X', { silent = true })
 
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
@@ -59,12 +59,12 @@ map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
 map("n", "<M-l>", "<cmd>bnext<CR>", { silent = true })
 map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
 
--- In nordic keyboard layout make some characters easier to type
+-- In nordic keyboard easy to reach.
 -- vim.keymap.set doesn't work
-vim.api.nvim_set_keymap("n", "ö", "[", { noremap = false, silent = false })
-vim.api.nvim_set_keymap("n", "ä", "]", { noremap = false, silent = false })
-map({"n", "o", "x"}, "¤", "$", { noremap = false, silent = false, desc = "which_key_ignore"})
-map({"n", "t"}, "<C-§>", "<CMD>lua Snacks.terminal.toggle()<CR>")
+vim.api.nvim_set_keymap("", "ö", "$", { noremap = false, silent = false, desc = "which_key_ignore" })
+-- vim.api.nvim_set_keymap("n", "ä", "", { noremap = false, silent = false })
+map("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { noremap = true, silent = true})
+-- vim.api.nvim_set_keymap("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { noremap = true, silent = true})
 
 map("n", "<Leader>O", "O<Esc>^Da", { desc = "Begin empty line up."})
 map("n", "<Leader>o", "o<Esc>^Da", { desc = "Begin empty line down."})
@@ -87,40 +87,51 @@ map("i", "<S-CR>", "<Esc>o<Esc>^Da", { desc = "Begin empty line down."})
 --   { desc = "Add empty line down.", noremap = true, silent = true })
 
 -- Add empty lines before and after cursor line
-vim.keymap.set('n', '<Leader>iO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
+map('n', '<Leader>iO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
  { desc = "Add empty line up", silent = true })
 
-vim.keymap.set('n', '<Leader>io', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
+map('n', '<Leader>io', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
  { desc = "Add empty line down", silent = true })
 
 -- Add common shortcuts from GUI apps.
 map("i", '<C-BS>', '<C-w>', { silent = true })
 map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
--- vim.keymap.set("n", "<C-P>", "<cmd>LazyVimFileFinder<cr>", { noremap = true, silent = true })
--- vim.keymap.set("n", "<C-P>", "<leader>ff")
+-- User commands ---------------------------------------
 
--- Restore defaults
-vim.keymap.set("n", "H", "H", { desc = "Move cursor to top of screen" })
-vim.keymap.set("n", "L", "L", { desc = "Move cursor to bottom of screen" })
+local create_cmd = vim.api.nvim_create_user_command
 
--- Change cwd to match current buffer's directory
-vim.api.nvim_create_user_command('Cdb', function()
+create_cmd('Cdb', function()
   vim.cmd('cd ' .. vim.fn.expand('%:p:h'))
   vim.cmd('pwd')
-end, {})
+end, { desc = "Change cwd to match current buffer's directory" })
+
+-- Obsidian plugin
+create_cmd('Obs', function()
+  vim.cmd('cd ~/Documents/notes')
+  vim.cmd('Neotree ~/Documents/notes')
+end, { desc = "Change to Obsidian notes directory" })
 
 
 -- GUI --------------------------------------------------
 
 if vim.g.neovide then
   -- Clipboard commands similar to terminals.
-  vim.keymap.set('c', '<C-v>', '<C-R>+')
+
+  -- paste main
+  map('', '<C-S-v>', '"+P')
+  map('i', '<C-S-v>', '<C-o>"+P')
+  map('t', '<C-S-v>', '<C-\\><C-n>"+Pi')
   vim.keymap.set('c', '<C-S-v>', '<C-R>+')
+
+  -- Paste 2nd clipboard
+  map('', '<S-Insert>', '"*P')
+  map('i', '<S-Insert>', '<C-o>"*P')
+  map('t', '<S-Insert>', '<C-\\><C-n>"*Pi')
   vim.keymap.set('c', '<S-Insert>', '<C-R>*')
-  map({ 'i' }, '<C-S-v>', '<C-o>"+P')
-  map({ 'i' }, '<C-S-Insert>', '<C-o>"*P')
-  map({ 's', "x" }, '<C-S-c>', '"+y')
+
+  -- Copy
+  map('v', '<C-S-c>', '"+y')
 end
 
 -- Minor tweaks ------------------------------------------
@@ -133,7 +144,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Accidentally pressin Shift+Down and Shift+Up to just move down and up in Visual mode
+-- -- Accidentally pressin Shift+{arrow} to just move cursor in Visual mode
 map("x", "<S-Down>", "j")
 map("x", "<S-Up>", "k")
 map("x", "<S-Right>", "l")
