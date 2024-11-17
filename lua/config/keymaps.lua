@@ -97,6 +97,8 @@ map('n', '<Leader>io', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>"
 map("i", '<C-BS>', '<C-w>', { silent = true })
 map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
+map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
+
 -- User commands ---------------------------------------
 
 local create_cmd = vim.api.nvim_create_user_command
