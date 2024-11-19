@@ -2,16 +2,9 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- Helper functions ---------------------------------------
+local map = vim.keymap.set
 
--- Create key mappings
-local function map(mode, source_key, target_key, opts)
-  -- Default options if not provided
-  -- opts = opts or { silent = true }
-  vim.keymap.set(mode, source_key, target_key, opts)
-  -- vim.api.nvim_set_keymap(mode, source_key, target_key, opts)
-end
-
+-- NOTE: { noremap = true } is default so no need to add that.
 
 -- Registers ----------------------------------------------
 
@@ -39,6 +32,7 @@ map("n", '<BS>', '"_X', { silent = true })
 
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
 
+
 -- Move lines --------------------------------------------
 
 -- Alt mappings can sometimes trigger with <esc> when using in terminal.
@@ -54,17 +48,18 @@ map("v", "<A-Up>", "<cmd><C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=g
 -- Focus previous / next buffer
 map({"n", "i"}, "<M-Right>", "<cmd>bnext<CR>", { silent = true })
 map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
-
--- map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 map("n", "<M-l>", "<cmd>bnext<CR>", { silent = true })
 map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
+-- map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 
 -- In nordic keyboard easy to reach.
--- vim.keymap.set doesn't work
-vim.api.nvim_set_keymap("", "ö", "$", { noremap = false, silent = false, desc = "which_key_ignore" })
+map("", "ö", "$", { noremap = false, silent = false, desc = "which_key_ignore" })
+-- vim.api.nvim_set_keymap("", "ö", "$", { noremap = false, silent = false, desc = "which_key_ignore" })
 -- vim.api.nvim_set_keymap("n", "ä", "", { noremap = false, silent = false })
-map("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { noremap = true, silent = true})
--- vim.api.nvim_set_keymap("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { noremap = true, silent = true})
+map("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
+-- map("t", "<C-`>", "<C-\\><C-n><CMD>lua toggle_terminal()<CR>", { silent = true })
+
+map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 
 map("n", "<Leader>O", "O<Esc>^Da", { desc = "Begin empty line up."})
 map("n", "<Leader>o", "o<Esc>^Da", { desc = "Begin empty line down."})
@@ -111,9 +106,30 @@ end, { desc = "Change cwd to match current buffer's directory" })
 -- Obsidian plugin
 create_cmd('Obs', function()
   vim.cmd('cd ~/Documents/notes')
-  vim.cmd('Neotree ~/Documents/notes')
+  vim.cmd("vsplit")
+  vim.cmd("enew")
+  -- vim.cmd("vertical resize 30")
+  -- Go back to the original window
+  vim.cmd("wincmd h")
+  vim.cmd('Neotree show')
+  vim.cmd('sleep 100ms')
+  -- vim.cmd("vertical resize 80")
+  vim.cmd("vertical resize 90")
+  -- Resize the new split to 80 columns
+  -- vim.cmd("edit '~/Documents/notes/1 Projektit/1 Todo.md'")
 end, { desc = "Change to Obsidian notes directory" })
 
+-- Trim trailing whitespace from the buffer
+create_cmd('Trim', function()
+  local save_cursor = vim.fn.getpos(".")
+  -- Save view state for visual mode users
+  local save_view = vim.fn.winsaveview()
+  -- Perform the substitution to trim trailing whitespace
+  vim.cmd([[keeppatterns %s/\v\s+$//e]])
+  -- Restore cursor position and view state
+  vim.fn.setpos(".", save_cursor)
+  vim.fn.winrestview(save_view)
+end, { desc = "Trim trailing whitespace from the buffer" })
 
 -- GUI --------------------------------------------------
 
