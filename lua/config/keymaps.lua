@@ -30,8 +30,10 @@ map({""}, "-", '"_x', { desc = "Delete character" })
 map({""}, "<Del>", '"_x', { desc = "which_key_ignore" })
 map("n", '<BS>', '"_X', { desc = "which_key_ignore" , silent = true })
 
-vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
+-- vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
 
+-- Don't yank selection when pasting with p in visual mode.
+map("x", "p", "P")
 
 -- Editing lines --------------------------------------------
 
@@ -95,11 +97,11 @@ map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 
 -- Tap C-\ twice to exit terminal mode
-map('t', '<C-\\><C-\\>', [[<C-\><C-n>]], { silent = true })
+map('t', [[<C-\><C-\>]], [[<C-\><C-n>]], { silent = true })
 
-map("n", "<Leader>O", "O<Esc>^Da", { desc = "Begin empty line up."})
-map("n", "<Leader>o", "o<Esc>^Da", { desc = "Begin empty line down."})
-map("i", "<S-CR>", "<Esc>o<Esc>^Da", { desc = "Begin empty line down."})
+map("n", "<Leader>O", "O<Esc>^Da", { desc = "Begin empty line up." })
+map("n", "<Leader>o", "o<Esc>^Da", { desc = "Begin empty line down." })
+map("i", "<S-CR>", "<Esc>o<Esc>^Da", { desc = "Begin empty line down." })
 
 -- Add common shortcuts from GUI apps.
 map("i", '<C-BS>', '<C-w>', { silent = true })
