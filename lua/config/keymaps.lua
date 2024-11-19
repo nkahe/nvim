@@ -18,22 +18,22 @@ map({""}, "xx", "dd", { desc = "Cut" })
 map({""}, "X", "D", { desc = "Cut end of line" })
 
 -- d to use unnamed register so it doesn't populate clipboard.
-map({""}, "d", '""d')
-map({""}, "dd", '""dd')
-map({""}, "D", '""D')
+map({""}, "d", '""d', { desc = "Delete" })
+map({""}, "dd", '""dd', { desc = "Delete line" })
+map({""}, "D", '""D', { desc = "Delete to end of line" })
 
 -- Paste and indent
 -- vim.keymap.set({ "n", "v" }, "p", "p`[v`]=`]")
 
 -- "-" and <Del> to delete single character(s) without yanking. Also 'dl|h' works.
 map({""}, "-", '"_x', { desc = "Delete character" })
-map({""}, "<Del>", '"_x')
-map("n", '<BS>', '"_X', { silent = true })
+map({""}, "<Del>", '"_x', { desc = "which_key_ignore" })
+map("n", '<BS>', '"_X', { desc = "which_key_ignore" , silent = true })
 
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
 
 
--- Move lines --------------------------------------------
+-- Editing lines --------------------------------------------
 
 -- Alt mappings can sometimes trigger with <esc> when using in terminal.
 map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
@@ -42,28 +42,6 @@ map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
 map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 map("v", "<A-Down>", "<cmd><C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
 map("v", "<A-Up>", "<cmd><C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
-
--- Misc ---------------------------------------------------
-
--- Focus previous / next buffer
-map({"n", "i"}, "<M-Right>", "<cmd>bnext<CR>", { silent = true })
-map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
-map("n", "<M-l>", "<cmd>bnext<CR>", { silent = true })
-map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
--- map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
-
--- In nordic keyboard easy to reach.
-map("", "ö", "$", { noremap = false, silent = false, desc = "which_key_ignore" })
--- vim.api.nvim_set_keymap("", "ö", "$", { noremap = false, silent = false, desc = "which_key_ignore" })
--- vim.api.nvim_set_keymap("n", "ä", "", { noremap = false, silent = false })
-map("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
--- map("t", "<C-`>", "<C-\\><C-n><CMD>lua toggle_terminal()<CR>", { silent = true })
-
-map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-
-map("n", "<Leader>O", "O<Esc>^Da", { desc = "Begin empty line up."})
-map("n", "<Leader>o", "o<Esc>^Da", { desc = "Begin empty line down."})
-map("i", "<S-CR>", "<Esc>o<Esc>^Da", { desc = "Begin empty line down."})
 
 -- TODO voisi lukumäärän ottaa vastaan.
 -- Add empty lines up/down while cursor and mode stays.
@@ -88,9 +66,48 @@ map('n', '<Leader>iO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<
 map('n', '<Leader>io', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
  { desc = "Add empty line down", silent = true })
 
+-- Misc ---------------------------------------------------
+
+-- Focus previous / next buffer
+map({"n", "i"}, "<M-Right>", "<cmd>bnext<CR>", { silent = true })
+map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
+map("n", "<M-l>", "<cmd>bnext<CR>", { silent = true })
+map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
+
+-- map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
+
+map({""}, "<C-Up>", "<C-y>", { desc = "Scroll up" })
+map({""}, "<C-Down>", "<C-e>", { desc = "Scroll down" })
+
+-- map("n", "<C-M-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+-- map("n", "<C-M-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+map("n", "<C-M-Down>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+map("n", "<C-M-Up>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+
+-- In nordic keyboard easy to reach.
+map("", "ö", "$", { noremap = false, silent = false, desc = "To end of line" })
+-- vim.api.nvim_set_keymap("", "ö", "$", { noremap = false, silent = false, desc = "which_key_ignore" })
+-- vim.api.nvim_set_keymap("n", "ä", "", { noremap = false, silent = false })
+map("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
+-- map("t", "<C-`>", "<C-\\><C-n><CMD>lua toggle_terminal()<CR>", { silent = true })
+
+map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+
+-- Tap C-\ twice to exit terminal mode
+map('t', '<C-\\><C-\\>', [[<C-\><C-n>]], { silent = true })
+
+map("n", "<Leader>O", "O<Esc>^Da", { desc = "Begin empty line up."})
+map("n", "<Leader>o", "o<Esc>^Da", { desc = "Begin empty line down."})
+map("i", "<S-CR>", "<Esc>o<Esc>^Da", { desc = "Begin empty line down."})
+
 -- Add common shortcuts from GUI apps.
 map("i", '<C-BS>', '<C-w>', { silent = true })
 map("i", '<C-Del>', '<C-o>dw', { silent = true })
+
+map('n', '<Leader>gl', function()
+    Snacks.lazygit.open()
+  end, { desc = "LazyGit", silent = true })
 
 map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
 
@@ -106,8 +123,7 @@ end, { desc = "Change cwd to match current buffer's directory" })
 -- Obsidian plugin
 create_cmd('Obs', function()
   vim.cmd('cd ~/Documents/notes')
-  vim.cmd("vsplit")
-  vim.cmd("enew")
+  vim.cmd("vnew")
   -- vim.cmd("vertical resize 30")
   -- Go back to the original window
   vim.cmd("wincmd h")
@@ -137,13 +153,13 @@ if vim.g.neovide then
   -- Clipboard commands similar to terminals.
 
   -- paste main
-  map('', '<C-S-v>', '"+P')
+  map('', '<C-S-v>', '"+P', { desc = "Paste from clipboard" })
   map('i', '<C-S-v>', '<C-o>"+P')
   map('t', '<C-S-v>', '<C-\\><C-n>"+Pi')
   vim.keymap.set('c', '<C-S-v>', '<C-R>+')
 
   -- Paste 2nd clipboard
-  map('', '<S-Insert>', '"*P')
+  map('', '<S-Insert>', '"*P', { desc = "Paste selection" })
   map('i', '<S-Insert>', '<C-o>"*P')
   map('t', '<S-Insert>', '<C-\\><C-n>"*Pi')
   vim.keymap.set('c', '<S-Insert>', '<C-R>*')
