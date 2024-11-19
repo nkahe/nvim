@@ -9,5 +9,5 @@ return {
       enabled = true,
       timeout = 6000,
     },
-  }
+  },
 }

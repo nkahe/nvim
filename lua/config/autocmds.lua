@@ -37,12 +37,12 @@
 -- })
 
 
--- Autocommand to set a black background only for terminal buffers
 vim.api.nvim_create_autocmd("TermOpen", {
     pattern = "*",
     callback = function()
-        vim.opt_local.winhighlight = "Normal:TermBackground"
-        vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
+      -- Set a black background only for terminal buffers
+      vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
+      vim.cmd("startinsert")
     end,
 })
 
