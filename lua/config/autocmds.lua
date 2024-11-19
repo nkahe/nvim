@@ -37,6 +37,22 @@
 -- })
 
 
+-- Autocommand to set a black background only for terminal buffers
+vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "*",
+    callback = function()
+        vim.opt_local.winhighlight = "Normal:TermBackground"
+        vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
+    end,
+})
+
+-- Define a highlight group for terminal background
+vim.api.nvim_set_hl(0, "TermBackground", { bg = "#010b0d" })
+vim.api.nvim_set_hl(0, "TermCursorLine", { bg = "#010b0d" })
+
+
+-- Autosource --------------------------------------------
+
 -- Watches for saves specifically in the `lua/config/keymaps.lua` and `lua/config/options.lua` files
 local config_path = vim.fn.stdpath("config") .. "/lua/config/"
 
@@ -54,6 +70,8 @@ local function get_terminal_name()
   end
   return terminalName
 end
+
+-- Dynamic tab title change for Yakuake -------------------
 
 -- Function to update the Yakuake terminal tab title
 local function update_yakuake_title()
@@ -84,7 +102,9 @@ if Session_id ~= "" then
   })
 end
 
--- Text formats. ftplugin file for Markdown didn't work. on oletuksena.
+-- Text formats -----------------------------------------
+
+-- Overwrite Lazy default. ftplugin doesn't work.
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown", "txt" },
   callback = function()
