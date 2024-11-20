@@ -62,11 +62,11 @@ map("v", "<A-Up>", "<cmd><C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=g
 --   { desc = "Add empty line down.", noremap = true, silent = true })
 
 -- Add empty lines before and after cursor line
-map('n', '<Leader>iO', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
- { desc = "Add empty line up", silent = true })
+map('n', '<M-S-o>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
+  { desc = "Add empty line up", silent = true })
 
-map('n', '<Leader>io', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
- { desc = "Add empty line down", silent = true })
+map('n', '<M-o>', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
+  { desc = "Add empty line down", silent = true })
 
 -- Misc ---------------------------------------------------
 
