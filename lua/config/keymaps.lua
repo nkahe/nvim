@@ -107,9 +107,7 @@ map("i", "<S-CR>", "<Esc>o<Esc>^Da", { desc = "Begin empty line down." })
 map("i", '<C-BS>', '<C-w>', { silent = true })
 map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
-map('n', '<Leader>gl', function()
-    Snacks.lazygit.open()
-  end, { desc = "LazyGit", silent = true })
+-- map('n', '<Leader>gl', function() Snacks.lazygit() end, { desc = "LazyGit", silent = false })
 
 map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
 
