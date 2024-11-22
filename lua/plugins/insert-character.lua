@@ -5,6 +5,7 @@
 return {
   "bagohart/vim-insert-append-single-character",
   keys = {
-    { "+", "<Plug>(ISC-insert-at-cursor)", mode = "n", desc = "Insert character" },
+    { "ä", "<Plug>(ISC-insert-at-cursor)", mode = "n", desc = "Insert character before cursor" },
+    { "Ä", "<Plug>(ISC-append-at-cursor)", mode = "n", desc = "Insert character before cursor" },
   },
 }

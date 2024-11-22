@@ -4,7 +4,7 @@
 
 local map = vim.keymap.set
 
--- NOTE: { noremap = true } is default so no need to add that.
+-- NOTE: For mappings "{ noremap = true }" is the default so no need to add that.
 
 -- Registers ----------------------------------------------
 
@@ -13,27 +13,51 @@ local map = vim.keymap.set
 -- select clipboard
 
 -- x is same as d so it actually cuts to clipboard.
-map({''}, "x", "d", { desc = "Cut" })
-map({""}, "xx", "dd", { desc = "Cut" })
-map({""}, "X", "D", { desc = "Cut end of line" })
+-- map("", "xx", "dd", { desc = "Cut" })
+-- map('', "x", "d", { desc = "Cut" })
+-- map("", "X", "D", { desc = "Cut end of line" })
+
+map('', "<A-d>", '"_d', { desc = "Delete without yanking" })
+-- AltGr + d
+map('', "ð", '"_d', { desc = "Delete without yanking" })
+
+map('', "_", '"_', { noremap = true, desc = "Use _ register" })
+map({""}, "+", '"+', { desc = "Use + register" })
+
+
 
 -- d to use unnamed register so it doesn't populate clipboard.
-map({""}, "d", '""d', { desc = "Delete" })
-map({""}, "dd", '""dd', { desc = "Delete line" })
-map({""}, "D", '""D', { desc = "Delete to end of line" })
+-- map({""}, "d", '""d', { desc = "Delete" })
+-- map({""}, "dd", '""dd', { desc = "Delete line" })
+-- map({""}, "D", '""D', { desc = "Delete to end of line" })
 
 -- Paste and indent
 -- vim.keymap.set({ "n", "v" }, "p", "p`[v`]=`]")
 
--- "-" and <Del> to delete single character(s) without yanking. Also 'dl|h' works.
-map({""}, "-", '"_x', { desc = "Delete character" })
+-- Delete a character or insert '-' after insert character -command (plugin).
+-- vim.keymap.set("", "-", function()
+--   local keys = vim.fn.getcmdtype() == ":" and vim.fn.getcmdline() or ""
+--   if keys:sub(-1) == "+" then
+--     return "-"
+--   else
+--     return vim.api.nvim_replace_termcodes('"_x', true, true, true)
+--   end
+-- end, { expr = true, desc = "Delete character" })
+
+-- map({""}, "-", '"_x', { desc = "Delete character" })
 map({""}, "<Del>", '"_x', { desc = "which_key_ignore" })
-map("n", '<BS>', '"_X', { desc = "which_key_ignore" , silent = true })
+map("n", '<BS>', '"_X', { desc = "which_key_ignore" })
+
+-- map("", '<Leader>d', '"+d', { desc = "Delete to clipboard" })
+-- map("", '<Leader>D', '"+D', { desc = "Delete line to clipboard" })
+
+-- map("", '<Leader>y', '"+y', { desc = "Copy to clipboard" })
+-- map("", '<Leader>Y', '"+Y', { desc = "Copy line to clipboard" })
 
 -- vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
-
+ 
 -- Don't yank selection when pasting with p in visual mode.
-map("x", "p", "P")
+map("x", "p", "gP")
 
 -- Editing lines --------------------------------------------
 
@@ -62,11 +86,11 @@ map("v", "<A-Up>", "<cmd><C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=g
 --   { desc = "Add empty line down.", noremap = true, silent = true })
 
 -- Add empty lines before and after cursor line
-map('n', '<M-S-o>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
-  { desc = "Add empty line up", silent = true })
-
 map('n', '<M-o>', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
   { desc = "Add empty line down", silent = true })
+
+map('n', '<M-S-o>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
+  { desc = "Add empty line up", silent = true })
 
 -- Misc ---------------------------------------------------
 
@@ -81,27 +105,20 @@ map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
 map({""}, "<C-Up>", "<C-y>", { desc = "Scroll up" })
 map({""}, "<C-Down>", "<C-e>", { desc = "Scroll down" })
 
--- map("n", "<C-M-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
--- map("n", "<C-M-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+map("n", "<C-M-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+map("i", "<C-A-Up>", "<esc><cmd>m .-22<cr>", { desc = "Increase Window Width" })
+map("n", "<C-M-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 map("n", "<C-M-Down>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-map("n", "<C-M-Up>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 
 -- In nordic keyboard easy to reach.
 map("", "ö", "$", { noremap = false, silent = false, desc = "To end of line" })
 -- vim.api.nvim_set_keymap("", "ö", "$", { noremap = false, silent = false, desc = "which_key_ignore" })
 -- vim.api.nvim_set_keymap("n", "ä", "", { noremap = false, silent = false })
-map("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
--- map("t", "<C-`>", "<C-\\><C-n><CMD>lua toggle_terminal()<CR>", { silent = true })
 
-map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 
 -- Tap C-\ twice to exit terminal mode
 map('t', [[<C-\><C-\>]], [[<C-\><C-n>]], { silent = true })
-
-map("n", "<Leader>O", "O<Esc>^Da", { desc = "Begin empty line up." })
-map("n", "<Leader>o", "o<Esc>^Da", { desc = "Begin empty line down." })
-map("i", "<S-CR>", "<Esc>o<Esc>^Da", { desc = "Begin empty line down." })
 
 -- Add common shortcuts from GUI apps.
 map("i", '<C-BS>', '<C-w>', { silent = true })
@@ -109,9 +126,18 @@ map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
 -- map('n', '<Leader>gl', function() Snacks.lazygit() end, { desc = "LazyGit", silent = false })
 
-map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
+-- Plugins
 
--- User commands ---------------------------------------
+map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
+map("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
+-- map("t", "<C-`>", "<C-\\><C-n><CMD>lua toggle_terminal()<CR>", { silent = true })
+
+
+-- Command mode (:) ---------------------------------------
+
+vim.keymap.set("ca", "W", "w")
+vim.keymap.set("ca", "Wq", "wq")
+vim.keymap.set("ca", "WQ", "wq")
 
 local create_cmd = vim.api.nvim_create_user_command
 
