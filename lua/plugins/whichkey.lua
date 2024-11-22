@@ -6,7 +6,7 @@ return {
   opts = {
     spec = {
       {
-        { "<Leader>i", group = "insert" },
+        { "<Leader>t", group = "Terminal" },
       }
     }
   }

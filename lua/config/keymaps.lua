@@ -115,25 +115,46 @@ map("", "ö", "$", { noremap = false, silent = false, desc = "To end of line" })
 -- vim.api.nvim_set_keymap("", "ö", "$", { noremap = false, silent = false, desc = "which_key_ignore" })
 -- vim.api.nvim_set_keymap("n", "ä", "", { noremap = false, silent = false })
 
-map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-
--- Tap C-\ twice to exit terminal mode
-map('t', [[<C-\><C-\>]], [[<C-\><C-n>]], { silent = true })
-
 -- Add common shortcuts from GUI apps.
 map("i", '<C-BS>', '<C-w>', { silent = true })
 map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
 -- map('n', '<Leader>gl', function() Snacks.lazygit() end, { desc = "LazyGit", silent = false })
 
--- Plugins
-
 map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
+
+-- Terminal ------------------------------------------------
+
+
+map("n", "<Leader>tb", "<CMD>terminal<CR>", { desc = "In new buffer" })
+
+map("n", "<Leader>tt", "<CMD>lua Snacks.terminal.toggle()<CR>", { desc = "Toggle terminal" })
+
+vim.keymap.set("n", "<leader>tf", function()
+  -- A command needs specified to open in float.
+  local shell = vim.o.shell
+  require("snacks.terminal").open(shell, {})
+end, { desc = "Floating terminal" })
+
+vim.keymap.set("n", "<leader>tv", function()
+  vim.cmd("vsplit | terminal")
+end, { desc = "◨ Terminal in vertical split" })
+
+
+-- Not all terminals support this.
 map("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
+map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+-- "q" also quits terminal window in normal mode.
+
+-- map("n", "<C-Space>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
 -- map("t", "<C-`>", "<C-\\><C-n><CMD>lua toggle_terminal()<CR>", { silent = true })
 
 
--- Command mode (:) ---------------------------------------
+-- Tap C-\ twice to exit terminal mode
+map('t', [[<C-\><C-\>]], [[<C-\><C-n>]], { silent = true })
+
+
+-- Command mode (:) -----------------------------------------
 
 vim.keymap.set("ca", "W", "w")
 vim.keymap.set("ca", "Wq", "wq")
