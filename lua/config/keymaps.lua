@@ -126,7 +126,6 @@ map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silen
 -- Terminal ------------------------------------------------
 
 
-map("n", "<Leader>tb", "<CMD>terminal<CR>", { desc = "In new buffer" })
 
 map("n", "<Leader>tt", "<CMD>lua Snacks.terminal.toggle()<CR>", { desc = "Toggle terminal" })
 
