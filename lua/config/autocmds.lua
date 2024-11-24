@@ -104,7 +104,7 @@ end
 
 -- Text formats -----------------------------------------
 
--- Overwrite Lazy default. ftplugin doesn't work.
+-- Overwrite Lazy default. If this is put to ftplugin or set globally it doesn't work.
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown", "txt" },
   callback = function()

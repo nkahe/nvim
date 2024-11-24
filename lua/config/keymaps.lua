@@ -214,6 +214,33 @@ create_cmd('Trim', function()
   vim.fn.winrestview(save_view)
 end, { desc = "Trim trailing whitespace from the buffer" })
 
+-- Source settings --------------------------------------
+
+-- Map F12 to source keymaps.lua and options.lua, and show a notification
+vim.keymap.set("n", "<F12>", function()
+  local success_keymaps, success_options = false, false
+  local basepath = vim.fn.stdpath("config") .. "/lua/config"
+
+  -- Try to source keymaps.lua
+  local keymaps_path = basepath .. "/keymaps.lua"
+  success_keymaps = pcall(dofile, keymaps_path)
+
+  -- Try to source options.lua
+
+  local options_path = basepath .. "/options.lua"
+  success_options = pcall(dofile, options_path)
+
+  -- Check results and display a message
+  if success_keymaps and success_options then
+    vim.notify("Sourced keymaps.lua and options.lua", vim.log.levels.INFO)
+  elseif not success_keymaps then
+    vim.notify("Failed to source keymaps.lua", vim.log.levels.ERROR)
+  elseif not success_options then
+    vim.notify("Failed to source options.lua", vim.log.levels.ERROR)
+  end
+end, { desc = "Source keymaps.lua & options.lua" })
+
+
 -- GUI --------------------------------------------------
 
 if vim.g.neovide then
