@@ -7,7 +7,5 @@ return {
       winbar = true,
       content_layout = "center",
     },
-
   }
-
 }
