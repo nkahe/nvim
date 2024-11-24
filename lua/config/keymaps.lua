@@ -17,15 +17,6 @@ local map = vim.keymap.set
 -- map('', "x", "d", { desc = "Cut" })
 -- map("", "X", "D", { desc = "Cut end of line" })
 
-map('', "<A-d>", '"_d', { desc = "Delete without yanking" })
--- AltGr + d
-map('', "ð", '"_d', { desc = "Delete without yanking" })
-
-map('', "_", '"_', { noremap = true, desc = "Use _ register" })
-map({""}, "+", '"+', { desc = "Use + register" })
-
-
-
 -- d to use unnamed register so it doesn't populate clipboard.
 -- map({""}, "d", '""d', { desc = "Delete" })
 -- map({""}, "dd", '""dd', { desc = "Delete line" })
@@ -45,8 +36,29 @@ map({""}, "+", '"+', { desc = "Use + register" })
 -- end, { expr = true, desc = "Delete character" })
 
 -- map({""}, "-", '"_x', { desc = "Delete character" })
+
+-- Make different deletions not to yank
+
+
 map({""}, "<Del>", '"_x', { desc = "which_key_ignore" })
 map("n", '<BS>', '"_X', { desc = "which_key_ignore" })
+
+map({""}, "c", '"_c', { desc = "which_key_ignore" })
+map({""}, "C", '"_C', { desc = "which_key_ignore" })
+
+map('', "<A-d>", '"_p', { desc = "Delete without yanking" })
+-- AltGr + d in nordic layout
+map('', "ð", '"_d', { desc = "Delete without yanking" })
+
+map("x", "p", '"_dP', { desc = "Paste" })
+
+map({""}, "x", '"_x', { desc = "which_key_ignore" })
+map({""}, "X", '"_X', { desc = "which_key_ignore" })
+
+-- Easier to type registers
+
+map('', "_", '"_', { desc = "Use _ register" })
+map({""}, "+", '"+', { desc = "Use + register" })
 
 -- map("", '<Leader>d', '"+d', { desc = "Delete to clipboard" })
 -- map("", '<Leader>D', '"+D', { desc = "Delete line to clipboard" })
@@ -56,8 +68,17 @@ map("n", '<BS>', '"_X', { desc = "which_key_ignore" })
 
 -- vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
  
--- Don't yank selection when pasting with p in visual mode.
-map("x", "p", "gP")
+
+-- GUI style insert mappings
+map('', '<S-Insert>', '"*P', { desc = "Paste selection" })
+map('i', '<S-Insert>', '<C-o>"*P')
+map('t', '<S-Insert>', '<C-\\><C-n>"*Pi')
+map('c', '<S-Insert>', '<C-R>*')
+
+map('x', '<C-Insert>', '"+y')
+
+-- For GUI only is in section at end part of file.
+
 
 -- Editing lines --------------------------------------------
 
@@ -123,9 +144,10 @@ map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
 map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
 
+
 -- Terminal ------------------------------------------------
 
-
+map("n", "<Leader>tb", "<CMD>terminal<CR>", { desc = "Open in new buffer" })
 
 map("n", "<Leader>tt", "<CMD>lua Snacks.terminal.toggle()<CR>", { desc = "Toggle terminal" })
 
@@ -137,17 +159,16 @@ end, { desc = "Floating terminal" })
 
 vim.keymap.set("n", "<leader>tv", function()
   vim.cmd("vsplit | terminal")
-end, { desc = "◨ Terminal in vertical split" })
-
+end, { desc = "◨ Open in vertical split" })
 
 -- Not all terminals support this.
 map("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
 map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+map("t", "q", "<cmd>close<cr>", { desc = "Hide Terminal" })
 -- "q" also quits terminal window in normal mode.
 
 -- map("n", "<C-Space>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
 -- map("t", "<C-`>", "<C-\\><C-n><CMD>lua toggle_terminal()<CR>", { silent = true })
-
 
 -- Tap C-\ twice to exit terminal mode
 map('t', [[<C-\><C-\>]], [[<C-\><C-n>]], { silent = true })
@@ -203,12 +224,6 @@ if vim.g.neovide then
   map('i', '<C-S-v>', '<C-o>"+P')
   map('t', '<C-S-v>', '<C-\\><C-n>"+Pi')
   vim.keymap.set('c', '<C-S-v>', '<C-R>+')
-
-  -- Paste 2nd clipboard
-  map('', '<S-Insert>', '"*P', { desc = "Paste selection" })
-  map('i', '<S-Insert>', '<C-o>"*P')
-  map('t', '<S-Insert>', '<C-\\><C-n>"*Pi')
-  vim.keymap.set('c', '<S-Insert>', '<C-R>*')
 
   -- Copy
   map('v', '<C-S-c>', '"+y')
