@@ -104,11 +104,19 @@ end
 
 
 -- Always open QuickFix windows below current window
-
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   pattern = "[^l]*", -- Applies to Quickfix commands, not location list
   callback = function()
     vim.cmd("botright copen")
+  end,
+})
+
+
+-- Open location list after search
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  pattern = "lgrep",
+  callback = function()
+    vim.cmd("lopen") -- Open the location list
   end,
 })
 
