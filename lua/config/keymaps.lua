@@ -144,7 +144,6 @@ map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
 map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
 
-
 -- Terminal ------------------------------------------------
 
 map("n", "<Leader>tb", "<CMD>terminal<CR>", { desc = "Open in new buffer" })
@@ -221,24 +220,26 @@ vim.keymap.set("n", "<F12>", function()
   local success_keymaps, success_options = false, false
   local basepath = vim.fn.stdpath("config") .. "/lua/config"
 
-  -- Try to source keymaps.lua
   local keymaps_path = basepath .. "/keymaps.lua"
   success_keymaps = pcall(dofile, keymaps_path)
-
-  -- Try to source options.lua
 
   local options_path = basepath .. "/options.lua"
   success_options = pcall(dofile, options_path)
 
+  local autocmds_path = basepath .. "/autocmds.lua"
+  success_autocmds = pcall(dofile, autocmds_path)
+
   -- Check results and display a message
-  if success_keymaps and success_options then
-    vim.notify("Sourced keymaps.lua and options.lua", vim.log.levels.INFO)
+  if success_keymaps and success_options and success_autocmds then
+    vim.notify("Sourced keymaps.lua, options.lua, autocmds.lua", vim.log.levels.INFO)
   elseif not success_keymaps then
     vim.notify("Failed to source keymaps.lua", vim.log.levels.ERROR)
   elseif not success_options then
     vim.notify("Failed to source options.lua", vim.log.levels.ERROR)
+  elseif not success_options then
+    vim.notify("Failed to source autocmds.lua", vim.log.levels.ERROR)
   end
-end, { desc = "Source keymaps.lua & options.lua" })
+end, { desc = "Source settings" })
 
 
 -- GUI --------------------------------------------------
