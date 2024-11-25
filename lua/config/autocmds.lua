@@ -102,7 +102,17 @@ if Session_id ~= "" then
   })
 end
 
--- Text formats -----------------------------------------
+
+-- Always open QuickFix windows below current window
+
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  pattern = "[^l]*", -- Applies to Quickfix commands, not location list
+  callback = function()
+    vim.cmd("botright copen")
+  end,
+})
+
+-- File formats -----------------------------------------
 
 -- Overwrite Lazy default. If this is put to ftplugin or set globally it doesn't work.
 vim.api.nvim_create_autocmd("FileType", {
