@@ -6,6 +6,7 @@ return {
   opts = {
     spec = {
       {
+        { "<Leader>n", group = "Notes (Obsidian)" },
         { "<Leader>t", group = "Terminal" },
       }
     }
