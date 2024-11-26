@@ -50,7 +50,7 @@ map('', "<A-d>", '"_p', { desc = "Delete without yanking" })
 -- AltGr + d in nordic layout
 map('', "ð", '"_d', { desc = "Delete without yanking" })
 
-map("x", "p", '"_dP', { desc = "Paste" })
+-- map("x", "<Leader>p", '"_dP', { desc = "Paste" })
 
 map({""}, "x", '"_x', { desc = "which_key_ignore" })
 map({""}, "X", '"_X', { desc = "which_key_ignore" })
