@@ -2,7 +2,6 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-vim.opt.clipboard = ""
 -- vim.opt.clipboard = "unnamedplus"
 
 -- No format on save.
@@ -11,6 +10,7 @@ vim.g.autoformat = false
 local options = {
   clipboard = "",
   colorcolumn = "80",
+  gdefault = true,
   guifont = { "FiraCode Nerd Font", ":h12" },
   selectmode = "key",
   scrolloff = 7,
@@ -21,7 +21,6 @@ local options = {
 for option, value in pairs(options) do
   vim.opt[option] = value
 end
-
 -- Cursor can go paste last character and after block
 vim.opt.virtualedit:append("block,onemore")
 -- Optionally you can use an autocommand to automatically open floating diagnostics for LSP errors

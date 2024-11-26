@@ -24,7 +24,7 @@ return {
       -- Use the "circular" easing function
       ["<C-b>"] = function() neoscroll.ctrl_b({ duration = 400, easing = 'circular' }) end,
       ["<C-f>"] = function() neoscroll.ctrl_f({ duration = 400, easing = 'circular' }) end,
-      -- Custom scroll behavior for <C-y> and <C-e>
+      -- Custom scroll behavior
       ["<C-y>"] = function() neoscroll.scroll(-0.1, { move_cursor = false, duration = 100 }) end,
       ["<C-e>"] = function() neoscroll.scroll(0.1, { move_cursor = false, duration = 100 }) end,
       ["<C-Down>"] = function() neoscroll.scroll(-0.1, { move_cursor = false, duration = 100 }) end,
