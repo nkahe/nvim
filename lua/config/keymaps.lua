@@ -217,7 +217,7 @@ end, { desc = "Trim trailing whitespace from the buffer" })
 
 -- Map F12 to source keymaps.lua and options.lua, and show a notification
 vim.keymap.set("n", "<F12>", function()
-  local success_keymaps, success_options = false, false
+  local success_keymaps, success_options, success_autocmds  = false, false, false
   local basepath = vim.fn.stdpath("config") .. "/lua/config"
 
   local keymaps_path = basepath .. "/keymaps.lua"
@@ -236,7 +236,7 @@ vim.keymap.set("n", "<F12>", function()
     vim.notify("Failed to source keymaps.lua", vim.log.levels.ERROR)
   elseif not success_options then
     vim.notify("Failed to source options.lua", vim.log.levels.ERROR)
-  elseif not success_options then
+  elseif not success_autocmds then
     vim.notify("Failed to source autocmds.lua", vim.log.levels.ERROR)
   end
 end, { desc = "Source settings" })
