@@ -24,6 +24,10 @@ return {
         RenderMarkdownH2Bg = { bg = '#2c272b' },
         RenderMarkdownH3Bg = { bg = '#242b2b' },
         RenderMarkdownH4Bg = { bg = '#172830' },
+
+      -- Define a highlight group for terminal background
+      TermBackground = { bg = "#010b0d" },
+      TermCursorLine = { bg = "#010b0d" }
       }
     }
 

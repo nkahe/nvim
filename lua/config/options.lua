@@ -21,14 +21,17 @@ local options = {
 for option, value in pairs(options) do
   vim.opt[option] = value
 end
+
 -- Cursor can go paste last character and after block
 vim.opt.virtualedit:append("block,onemore")
+
 -- Optionally you can use an autocommand to automatically open floating diagnostics for LSP errors
 -- vim.cmd([[
 --   autocmd CursorHold * lua vim.diagnostic.open_float({scope="line"})
 -- ]])
 
-vim.api.nvim_set_hl(0, 'NeoTreeGitUntracked', { fg = '#73c991' })
+-- vim.api.nvim_set_hl(0, 'NeoTreeGitUntracked', { fg = '#73c991' })
+
 
 -- GUI ------------------------------------------
 
