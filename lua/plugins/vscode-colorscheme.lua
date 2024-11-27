@@ -16,7 +16,14 @@ return {
         vscCursorDarkDark = "#1f1f1f",
 
         -- Floating windowws, terminals etc.
-        vscPopupBack = '#262626'
+        vscPopupBack = '#262626',
+      },
+
+      group_overrides = {
+        RenderMarkdownH1Bg = { bg = '#22263a' },
+        RenderMarkdownH2Bg = { bg = '#2c272b' },
+        RenderMarkdownH3Bg = { bg = '#242b2b' },
+        RenderMarkdownH4Bg = { bg = '#172830' },
       }
     }
 
@@ -34,9 +41,7 @@ return {
   },
   {
     "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "vscode",
-    },
+    opts = { colorscheme = "vscode" },
   }
 }
 
