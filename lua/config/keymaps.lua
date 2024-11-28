@@ -40,23 +40,36 @@ local map = vim.keymap.set
 -- Make different deletions not to yank
 
 
-map({""}, "<Del>", '"_x', { desc = "which_key_ignore" })
-map("n", '<BS>', '"_X', { desc = "which_key_ignore" })
+-- map({""}, "c", '"_c', { desc = "which_key_ignore" })
+-- map({""}, "C", '"_C', { desc = "which_key_ignore" })
 
-map({""}, "c", '"_c', { desc = "which_key_ignore" })
-map({""}, "C", '"_C', { desc = "which_key_ignore" })
-
-map('', "<A-d>", '"_p', { desc = "Delete without yanking" })
+-- Deleting without yanking
+map('', "<Leader>d", '"_d', { desc = "Delete without yanking" })
+map('', "<Leader>D", '"_D', { desc = "Delete to end of line without yanking" })
+map('', "<A-d>", '"_d', { desc = "Delete without yanking" })
+map('', "<A-D>", '"_D', { desc = "Delete to end of line without yanking" })
 -- AltGr + d in nordic layout
 map('', "ð", '"_d', { desc = "Delete without yanking" })
-
+map('', "Ð", '"_d', { desc = "Delete to end of line without yanking" })
 -- map("x", "<Leader>p", '"_dP', { desc = "Paste" })
 
+map({""}, "<Del>", '"_x', { desc = "which_key_ignore" })
+map("n", '<BS>', '"_X', { desc = "which_key_ignore" })
 map({""}, "x", '"_x', { desc = "which_key_ignore" })
 map({""}, "X", '"_X', { desc = "which_key_ignore" })
 
--- Easier to type registers
+-- Clipboard operators
+map('', "cp", '"+p',  { desc = "Paste from clipboard" })
+map('', "cP", '"+P',  { desc = "Paste from clipboard" })
+map('v', "cp", '"+P', { desc = "Paste from clipboard" })
+map('', "cd", '"+d',  { desc = "Delete to clipboard" })
+map('', "cD", '"+D',  { desc = "Delete end of line to clipboard" })
+map('v', "cd", '"+d', { desc = "Delete to clipboard" })
+map('', "cy", '"+y',  { desc = "Yank to clipboard" })
+map('', "cY", '"+Y',  { desc = "Yank end of line to clipboard" })
+map('v', "cy", '"+y', { desc = "Yank to clipboard" })
 
+-- Easier to type registers
 map('', "_", '"_', { desc = "Use _ register" })
 map({""}, "+", '"+', { desc = "Use + register" })
 
