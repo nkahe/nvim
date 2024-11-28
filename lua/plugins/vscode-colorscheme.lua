@@ -25,7 +25,8 @@ return {
         RenderMarkdownH3Bg = { bg = '#242b2b' },
         RenderMarkdownH4Bg = { bg = '#172830' },
 
-      -- Define a highlight group for terminal background
+      -- Define a highlight group for terminal background. These are used
+        -- in autocmds.lua
       TermBackground = { bg = "#010b0d" },
       TermCursorLine = { bg = "#010b0d" }
       }

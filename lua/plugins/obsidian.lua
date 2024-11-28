@@ -30,9 +30,9 @@ return {
       },
     },
     "use_alias_only",
+    -- Markdown UI is handled by render-markdown
     ui = { enable = false },
   },
-  -- UI is handler by render-markdown
   keys = {
     { "<Leader>sO", "<cmd>ObsidianSearch<CR>", mode = "n", desc = "Obsidian search" },
     { "<Leader>nn", ":ObsidianNew ", mode = "n", desc = "🆕 New note" },

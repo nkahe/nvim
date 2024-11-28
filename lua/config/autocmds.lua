@@ -36,17 +36,24 @@
 --   end,
 -- })
 
+-- Disable diagnostics for these type by default
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.diagnostic.enable(false)
+  end,
+})
 
+-- Set background color for terminal
 vim.api.nvim_create_autocmd("TermOpen", {
     pattern = "*",
     callback = function()
-      -- Set a black background only for terminal buffers
+      -- Set a black background only for terminal buffers. These are defined
+      -- in colorscheme settings.
       vim.opt_local.winhighlight = "Normal:TermBackground,CursorLine:TermCursorLine"
       vim.cmd("startinsert")
     end,
 })
-
-
 
 -- Autosource --------------------------------------------
 
