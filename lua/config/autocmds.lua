@@ -46,9 +46,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end,
 })
 
--- Define a highlight group for terminal background
-vim.api.nvim_set_hl(0, "TermBackground", { bg = "#010b0d" })
-vim.api.nvim_set_hl(0, "TermCursorLine", { bg = "#010b0d" })
 
 
 -- Autosource --------------------------------------------
