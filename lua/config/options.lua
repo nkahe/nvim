@@ -2,15 +2,14 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-vim.opt.clipboard = ""
--- LazyVim default:
--- vim.opt.clipboard = "unnamedplus"
-
 -- No format on save.
 vim.g.autoformat = false
 
+-- LazyVim default:
+-- vim.opt.clipboard = "unnamedplus"
+
 local options = {
-  clipboard = "",
+  clipboard = "unnamed",
   colorcolumn = "80",
   gdefault = true,
   guifont = { "FiraCode Nerd Font", ":h12" },
