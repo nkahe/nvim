@@ -61,7 +61,8 @@ map({""}, "X", '"_X', { desc = "which_key_ignore" })
 -- Clipboard operators
 map('', "cp", '"+p',  { desc = "Paste from clipboard" })
 map('', "cP", '"+P',  { desc = "Paste from clipboard" })
-map('v', "cp", '"+P', { desc = "Paste from clipboard" })
+map('v', "cp", '"+p', { desc = "Paste from clipboard" })
+map('v', "cP", '"+P', { desc = "Paste from clipboard" })
 map('', "cd", '"+d',  { desc = "Delete to clipboard" })
 map('', "cD", '"+D',  { desc = "Delete end of line to clipboard" })
 map('v', "cd", '"+d', { desc = "Delete to clipboard" })
@@ -73,14 +74,10 @@ map('v', "cy", '"+y', { desc = "Yank to clipboard" })
 map('', "_", '"_', { desc = "Use _ register" })
 map({""}, "+", '"+', { desc = "Use + register" })
 
--- map("", '<Leader>d', '"+d', { desc = "Delete to clipboard" })
--- map("", '<Leader>D', '"+D', { desc = "Delete line to clipboard" })
-
 -- map("", '<Leader>y', '"+y', { desc = "Copy to clipboard" })
 -- map("", '<Leader>Y', '"+Y', { desc = "Copy line to clipboard" })
 
 -- vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
- 
 
 -- GUI style insert mappings
 map('', '<S-Insert>', '"*P', { desc = "Paste selection" })
@@ -286,3 +283,12 @@ map("x", "<S-Up>", "k")
 map("x", "<S-Right>", "l")
 map("x", "<S-Left>", "h")
 
+vim.schedule(function()
+  -- Check if the mappings exist before deleting them
+  if vim.fn.maparg("H", "n") ~= "" then
+    vim.keymap.del("n", "H")
+  end
+  if vim.fn.maparg("L", "n") ~= "" then
+    vim.keymap.del("n", "L")
+  end
+end)
