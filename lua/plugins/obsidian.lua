@@ -35,11 +35,11 @@ return {
   },
   keys = {
     { "<Leader>sO", "<cmd>ObsidianSearch<CR>", mode = "n", desc = "Obsidian search" },
-    { "<Leader>nn", ":ObsidianNew ", mode = "n", desc = "🆕 New note" },
-    { "<Leader>no", "<cmd>ObsidianOpen<CR>", mode = "n", desc = "Open in Obsidian app" },
-    { "<Leader>nr", "<cmd>ObsidianRename<CR>", mode = "n", desc = "Rename note" },
-    { "<Leader>ns", "<cmd>ObsidianSearch<CR>", mode = "n", desc = "Search note" },
-    { "<Leader>nq", "<cmd>ObsidianQuickSwitch<CR>", mode = "n", desc = "Quick switch" },
-    { "<Leader>nw", "<cmd>ObsidianWorkspace<CR>", mode = "n", desc = "Change workspace" },
+    { "<Leader>Nn", ":ObsidianNew ", mode = "n", desc = "🆕 New note" },
+    { "<Leader>No", "<cmd>ObsidianOpen<CR>", mode = "n", desc = "Open in Obsidian app" },
+    { "<Leader>Nr", "<cmd>ObsidianRename<CR>", mode = "n", desc = "Rename note" },
+    { "<Leader>Ns", "<cmd>ObsidianSearch<CR>", mode = "n", desc = "Search note" },
+    { "<Leader>Nq", "<cmd>ObsidianQuickSwitch<CR>", mode = "n", desc = "Quick switch" },
+    { "<Leader>Nw", "<cmd>ObsidianWorkspace<CR>", mode = "n", desc = "Change workspace" },
   }
 }
