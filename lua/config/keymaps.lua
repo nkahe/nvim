@@ -93,6 +93,7 @@ map('x', '<C-Insert>', '"+y')
 
 -- Editing lines --------------------------------------------
 
+-- VSCode already does this.
 if not vim.g.vscode then
   -- Alt mappings can sometimes trigger with <esc> when using in terminal.
   map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
@@ -101,17 +102,20 @@ if not vim.g.vscode then
   map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
   map("v", "<A-Down>", "<cmd><C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
   map("v", "<A-Up>", "<cmd><C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
-
-  -- Add empty lines before and after cursor line
-  map('n', '<M-o>', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
-    { desc = "Add empty line down", silent = true })
-
-  map('n', '<M-S-o>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
-    { desc = "Add empty line up", silent = true })
 end
 
+-- TODO: not dot repeatable.
+
+-- <Leader>o/O rivin aloitus ilman continuatiota?
+
+-- Add empty lines before and after cursor line
+map('n', ']<Space>', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
+  { desc = "Add empty line down", silent = true })
+
+map('n', '[<Space>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
+  { desc = "Add empty line up", silent = true })
+
 -- TODO voisi lukumäärän ottaa vastaan.
--- Add empty lines up/down while cursor and mode stays.
 
 -- vim.api.nvim_set_keymap("n", "<Leader>iO", "m`O<Esc>``",
 --   { desc = "Add empty line up.", noremap = true, silent = true })
@@ -143,8 +147,7 @@ map("", "ö", "$", { noremap = false, silent = false, desc = "To end of line" })
 
 -- map('n', '<Leader>gl', function() Snacks.lazygit() end, { desc = "LazyGit", silent = false })
 
-
--- <CR> to open links in help in addition to ^]
+-- Help pages: <CR> to open links in addition to ^]
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "help",
   callback = function()
