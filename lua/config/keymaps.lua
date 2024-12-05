@@ -104,16 +104,56 @@ if not vim.g.vscode then
   map("v", "<A-Up>", "<cmd><C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 end
 
--- TODO: not dot repeatable.
-
 -- <Leader>o/O rivin aloitus ilman continuatiota?
 
--- Add empty lines before and after cursor line
-map('n', ']<Space>', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
-  { desc = "Add empty line down", silent = true })
+blank_above = function()
+  local repeated = vim.fn["repeat"]({""}, vim.v.count1)
+  local line = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, line-1, line-1, true, repeated)
+end
 
-map('n', '[<Space>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
-  { desc = "Add empty line up", silent = true })
+blank_below = function()
+  local repeated = vim.fn["repeat"]({""}, vim.v.count1)
+  local line = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, line, line, true, repeated)
+end
+
+vim.keymap.set('n', '[<Space>', function()
+  vim.go.operatorfunc = "v:lua.blank_above"
+  return 'g@l'
+end, { desc = "Add empty line above", expr = true, silent = true })
+
+vim.keymap.set('n', ']<Space>', function()
+  vim.go.operatorfunc = "v:lua.blank_below"
+  return 'g@l'
+end, { desc = "Add empty line below", expr = true, silent = true })
+
+-- -- Define the function for adding lines
+-- local function add_empty_line(direction, count)
+--   if direction == "down" then
+--     vim.cmd(string.format("call append(line('.'), repeat([''], %d))", count))
+--   elseif direction == "up" then
+--     vim.cmd(string.format("call append(line('.') - 1, repeat([''], %d))", count))
+--   end
+-- end
+
+-- Use mappings that call the function and support the repeat (`.`) command
+-- vim.keymap.set('n', ']<Space>', function()
+--   local count = vim.v.count1
+--   add_empty_line("down", count)
+-- end, { desc = "Add empty line down", silent = true })
+
+-- vim.keymap.set('n', '[<Space>', function()
+--   local count = vim.v.count1
+--   add_empty_line("up", count)
+-- end, { desc = "Add empty line up", silent = true })
+
+-- Add empty lines before and after cursor line
+-- map('n', ']<Space>', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
+--   { desc = "Add empty line down", silent = true })
+
+-- map('n', '[<Space>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
+--   { desc = "Add empty line up", silent = true })
 
 -- TODO voisi lukumäärän ottaa vastaan.
 
@@ -135,8 +175,6 @@ map('n', '[<Space>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR
 -- Focus previous / next buffer
 map({"n", "i"}, "<M-Right>", "<cmd>bnext<CR>", { silent = true })
 map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
-map("n", "<M-l>", "<cmd>bnext<CR>", { silent = true })
-map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
 
 -- map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 
@@ -238,6 +276,9 @@ end)
 if vim.g.vscode then
   return
 end
+
+map("n", "<M-l>", "<cmd>bnext<CR>", { silent = true })
+map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
 
 -- Add common shortcuts from GUI apps.
 map("i", '<C-BS>', '<C-w>', { silent = true })
