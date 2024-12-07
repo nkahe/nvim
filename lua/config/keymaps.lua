@@ -5,6 +5,7 @@
 
 local map = vim.keymap.set
 
+-- Mappings that are only used when run embedded in VSCode.
 if vim.g.vscode then
   require("config.vscode")
 end
@@ -129,7 +130,7 @@ map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
 -- map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 
 -- In nordic keyboard easy to reach.
-map("", "ö", "$", { noremap = false, silent = false, desc = "To end of line" })
+-- map("", "ö", "$", { noremap = false, silent = false, desc = "To end of line" })
 -- vim.api.nvim_set_keymap("", "ö", "$", { noremap = false, silent = false, desc = "which_key_ignore" })
 -- vim.api.nvim_set_keymap("n", "ä", "", { noremap = false, silent = false })
 
@@ -249,6 +250,8 @@ map({"n"}, "<C-Down>", "<C-e>", { desc = "Scroll down" })
 
 map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
 
+
+map('n', "<LocalLeader>r", "<cmd>Neotree reveal_force_cwd<CR>", { desc = "Reveal in Neotree" })
 
 -- Terminal ------------------------------------------------
 
