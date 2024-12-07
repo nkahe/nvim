@@ -8,6 +8,8 @@ vim.g.autoformat = false
 -- LazyVim default:
 -- vim.opt.clipboard = "unnamedplus"
 
+vim.g.maplocalleader = 'ö'
+
 local options = {
   clipboard = "unnamed",
   colorcolumn = "80",
