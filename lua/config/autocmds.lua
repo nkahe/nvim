@@ -36,6 +36,20 @@
 --   end,
 -- })
 
+
+-- Disable relative numbers in Insert mode
+vim.api.nvim_create_autocmd("InsertEnter", {
+    pattern = "*",
+    command = "set norelativenumber",
+})
+
+-- Enable relative numbers when leaving Insert mode
+vim.api.nvim_create_autocmd("InsertLeave", {
+    pattern = "*",
+    command = "set relativenumber",
+})
+
+
 -- Disable diagnostics for these type by default
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
