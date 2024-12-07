@@ -90,85 +90,35 @@ map('x', '<C-Insert>', '"+y')
 
 -- For GUI only is in section at end part of file.
 
-
--- Editing lines --------------------------------------------
-
--- VSCode already does this.
-if not vim.g.vscode then
-  -- Alt mappings can sometimes trigger with <esc> when using in terminal.
-  map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
-  map("n", "<A-Up>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
-  map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
-  map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
-  map("v", "<A-Down>", "<cmd><C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
-  map("v", "<A-Up>", "<cmd><C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
-end
+-- Adding lines --------------------------------------------
 
 -- <Leader>o/O rivin aloitus ilman continuatiota?
 
-blank_above = function()
-  local repeated = vim.fn["repeat"]({""}, vim.v.count1)
+local function add_blank_line(direction)
+  local repeated = vim.fn["repeat"]({ "" }, vim.v.count1)
   local line = vim.api.nvim_win_get_cursor(0)[1]
-  vim.api.nvim_buf_set_lines(0, line-1, line-1, true, repeated)
-end
-
-blank_below = function()
-  local repeated = vim.fn["repeat"]({""}, vim.v.count1)
-  local line = vim.api.nvim_win_get_cursor(0)[1]
+  if direction == "above" then
+    line = line - 1
+  elseif direction == "below" then
+  else
+    error("Invalid direction: " .. tostring(direction))
+  end
   vim.api.nvim_buf_set_lines(0, line, line, true, repeated)
 end
 
+-- Expose the function globally for operatorfunc
+_G.add_blank_line_above = function() add_blank_line("above") end
+_G.add_blank_line_below = function() add_blank_line("below") end
+
 vim.keymap.set('n', '[<Space>', function()
-  vim.go.operatorfunc = "v:lua.blank_above"
+  vim.go.operatorfunc = "v:lua.add_blank_line_above"
   return 'g@l'
 end, { desc = "Add empty line above", expr = true, silent = true })
 
 vim.keymap.set('n', ']<Space>', function()
-  vim.go.operatorfunc = "v:lua.blank_below"
+  vim.go.operatorfunc = "v:lua.add_blank_line_below"
   return 'g@l'
 end, { desc = "Add empty line below", expr = true, silent = true })
-
--- -- Define the function for adding lines
--- local function add_empty_line(direction, count)
---   if direction == "down" then
---     vim.cmd(string.format("call append(line('.'), repeat([''], %d))", count))
---   elseif direction == "up" then
---     vim.cmd(string.format("call append(line('.') - 1, repeat([''], %d))", count))
---   end
--- end
-
--- Use mappings that call the function and support the repeat (`.`) command
--- vim.keymap.set('n', ']<Space>', function()
---   local count = vim.v.count1
---   add_empty_line("down", count)
--- end, { desc = "Add empty line down", silent = true })
-
--- vim.keymap.set('n', '[<Space>', function()
---   local count = vim.v.count1
---   add_empty_line("up", count)
--- end, { desc = "Add empty line up", silent = true })
-
--- Add empty lines before and after cursor line
--- map('n', ']<Space>', "<Cmd>call append(line('.'), repeat([''], v:count1))<CR>",
---   { desc = "Add empty line down", silent = true })
-
--- map('n', '[<Space>', "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
---   { desc = "Add empty line up", silent = true })
-
--- TODO voisi lukumäärän ottaa vastaan.
-
--- vim.api.nvim_set_keymap("n", "<Leader>iO", "m`O<Esc>``",
---   { desc = "Add empty line up.", noremap = true, silent = true })
--- vim.api.nvim_set_keymap("n", "<Leader>io", "m`o<Esc>``",
---   { desc = "Add empty line down.", noremap = true, silent = true })
-
--- Pitäisi olla parempi kuin yllä.
--- vim.api.nvim_set_keymap("n", "<Leader>io", ":set paste<CR>m`o<Esc>``:set nopaste<CR>",
---   { desc = "Add empty line down.", noremap = true, silent = true })
-
--- Cursor moves along.
--- vim.api.nvim_set_keymap("n", "<Leader>io", ":set paste<CR>o<Esc>:set nopaste<CR>",
---   { desc = "Add empty line down.", noremap = true, silent = true })
 
 -- Misc ---------------------------------------------------
 
@@ -276,6 +226,16 @@ end)
 if vim.g.vscode then
   return
 end
+
+-- Alt mappings can sometimes trigger with <esc> when using in terminal.
+
+-- Moving lines
+map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
+map("n", "<A-Up>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
+map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
+map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
+map("v", "<A-Down>", "<cmd><C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
+map("v", "<A-Up>", "<cmd><C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
 map("n", "<M-l>", "<cmd>bnext<CR>", { silent = true })
 map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
