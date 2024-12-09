@@ -7,5 +7,23 @@ return {
       winbar = true,
       content_layout = "center",
     },
+
+    default_component_configs = {
+      symlink_target = {
+        enabled = true,
+      },
+    },
+    filesystem = {
+        follow_current_file = {
+            enabled = true,
+            leave_dirs_open = false, -- Optional: Determines whether to close other directories when following
+        },
+        filtered_items = {
+            hide_dotfiles = false, -- Adjust other filtering options as needed
+            hide_by_name = { ".git", "node_modules" }, -- Example filters
+        },
+    },
+    search_command = "fd -L", -- Follow symlinks while searching
+    hijack_netrw_behavior = "open_default", -- Relevant for symlink resolution
   }
 }
