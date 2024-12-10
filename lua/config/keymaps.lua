@@ -8,9 +8,25 @@ local map = vim.keymap.set
 -- Mappings that are only used when run embedded in VSCode.
 if vim.g.vscode then
   require("config.vscode")
+else
+  -- local general_menu = require("config.menus.menu")
+  -- vim.keymap.set( "n", "<RightMouse>", function()
+  --   vim.cmd.exec '"normal! \\<RightMouse>"'
+  --   -- Which menu to open.
+  --   local options = vim.bo.ft == "NvimTree" and "nvimtree" or general_menu
+  --   require("menu").open(options, { mouse = true })
+  -- end, {})
+  -- vim.keymap.set( "v", "<RightMouse>", function()
+  --   vim.cmd.exec '"normal! \\<RightMouse>"'
+  --   -- Which menu to open.
+  --   local visual_menu = require("config.menus.visual")
+  --   require("menu").open(visual_menu, { mouse = true })
+  -- end, {})
 end
 
 -- NOTE: For mappings "{ noremap = true }" is the default so no need to add that.
+
+
 
 -- Registers ----------------------------------------------
 
@@ -136,7 +152,7 @@ map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
 
 -- map('n', '<Leader>gl', function() Snacks.lazygit() end, { desc = "LazyGit", silent = false })
 
--- Help pages: <CR> to open links in addition to ^]
+-- Help pages: <CR> to open links in addition to C-]
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "help",
   callback = function()
@@ -212,6 +228,11 @@ end, { desc = "Reload settings" })
 
 -- Restore default mappings ------------------------------
 
+vim.keymap.set('n', '<up>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set('n', '<down>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set('n', '<left>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set('n', '<right>', '<nop>', { desc = "Disable arrow key" })
+
 vim.schedule(function()
   -- Check if the mappings exist before deleting them
   if vim.fn.maparg("H", "n") ~= "" then
@@ -222,7 +243,9 @@ vim.schedule(function()
   end
 end)
 
--- No VSCode mappings after this ===========================
+--------------------------------------------------------------------------------
+-- No VSCode mappings after this
+--------------------------------------------------------------------------------
 
 if vim.g.vscode then
   return
