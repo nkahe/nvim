@@ -228,10 +228,10 @@ end, { desc = "Reload settings" })
 
 -- Restore default mappings ------------------------------
 
-vim.keymap.set('n', '<up>', '<nop>', { desc = "Disable arrow key" })
-vim.keymap.set('n', '<down>', '<nop>', { desc = "Disable arrow key" })
-vim.keymap.set('n', '<left>', '<nop>', { desc = "Disable arrow key" })
-vim.keymap.set('n', '<right>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set({ 'n', 'v' }, '<up>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set({ 'n', 'v' }, '<down>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set({ 'n', 'v' }, '<left>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set({ 'n', 'v' }, '<right>', '<nop>', { desc = "Disable arrow key" })
 
 vim.schedule(function()
   -- Check if the mappings exist before deleting them
