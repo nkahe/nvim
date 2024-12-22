@@ -258,8 +258,11 @@ map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move D
 map("n", "<A-Up>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
 map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
 map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
-map("v", "<A-Down>", "<cmd><C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
-map("v", "<A-Up>", "<cmd><C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
+-- map("v", "<A-Down>", "<cmd>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
+-- map("v", "<A-Up>", "<cmd>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
+vim.keymap.set("v", "<A-Down>", ":m '>+1<cr>gv=gv", { silent = true, desc = "Move down" })
+vim.keymap.set("v", "<A-Up>", ":m '<-2<cr>gv=gv", { silent = true, desc = "Move up" })
+
 
 map("n", "<M-l>", "<cmd>bnext<CR>", { silent = true })
 map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
@@ -271,7 +274,7 @@ map("i", '<C-Del>', '<C-o>dw', { silent = true })
 map({"n"}, "<C-Up>", "<C-y>", { desc = "Scroll up" })
 map({"n"}, "<C-Down>", "<C-e>", { desc = "Scroll down" })
 
-map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
+-- map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
 
 
 map('n', "<LocalLeader>r", "<cmd>Neotree reveal_force_cwd<CR>", { desc = "Reveal in Neotree" })
