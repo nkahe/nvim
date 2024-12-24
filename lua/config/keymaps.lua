@@ -329,6 +329,18 @@ if vim.g.neovide then
   map('v', '<C-S-c>', '"+y')
 end
 
+-- Whichkey descriptions
+
+local wk = require("which-key")
+
+wk.add({
+  ["["] = {
+    ["["] = "Previous reference",
+  },
+  ["]"] = {
+    ["]"] = "Next reference",
+  },
+}, { mode = "n" })
 
 -- Minor tweaks ------------------------------------------
 
