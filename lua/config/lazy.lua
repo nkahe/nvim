@@ -30,19 +30,20 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "vscode", "tokyonight", "habamax" } },
+  install = { colorscheme = { "vscode" } },
   checker = {
     enabled = true, -- check for plugin updates periodically
     notify = false, -- notify on update
   }, -- automatically check for plugin updates
   performance = {
     rtp = {
-      -- disable some rtp plugins
+      -- disable some rtp plugins. disabling netrw diables ability to exit
+      -- remote files with scp.
       disabled_plugins = {
         "gzip",
         -- "matchit",
         -- "matchparen",
-        "netrwPlugin",
+        -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
