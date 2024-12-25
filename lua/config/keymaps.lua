@@ -32,7 +32,7 @@ end
 
 -- x is same as d so it actually cuts to clipboard.
 -- map("", "xx", "dd", { desc = "Cut" })
--- map('', "x", "d", { desc = "Cut" })
+-- map({'n', 'v'}, "x", "d", { desc = "Cut" })
 -- map("", "X", "D", { desc = "Cut end of line" })
 
 -- d to use unnamed register so it doesn't populate clipboard.
@@ -61,34 +61,33 @@ end
 -- map({""}, "C", '"_C', { desc = "which_key_ignore" })
 
 -- Deleting without yanking
-map('', "<Leader>d", '"_d', { desc = "Delete without yanking" })
-map('', "<Leader>D", '"_D', { desc = "Delete to end of line without yanking" })
-map('', "<LocalLeader>d", '"_d', { desc = "Delete without yanking" })
-map('', "<LocalLeader>D", '"_D', { desc = "Delete to end of line without yanking" })
-map('', "<A-d>", '"_d', { desc = "Delete without yanking" })
-map('', "<A-D>", '"_D', { desc = "Delete to end of line without yanking" })
+map({'n', 'v'}, "<Leader>d", '"_d', { desc = "Delete without yanking" })
+map({'n', 'v'}, "<Leader>D", '"_D', { desc = "Delete to end of line without yanking" })
+map({'n', 'v'}, "<LocalLeader>d", '"_d', { desc = "Delete without yanking" })
+map({'n', 'v'}, "<LocalLeader>D", '"_D', { desc = "Delete to end of line without yanking" })
+map({'n', 'v'}, "<A-d>", '"_d', { desc = "Delete without yanking" })
+map({'n', 'v'}, "<A-D>", '"_D', { desc = "Delete to end of line without yanking" })
 -- AltGr + d in nordic layout
-map('', "ð", '"_d', { desc = "Delete without yanking" })
-map('', "Ð", '"_d', { desc = "Delete to end of line without yanking" })
+map({'n', 'v'}, "ð", '"_d', { desc = "Delete without yanking" })
+map({'n', 'v'}, "Ð", '"_d', { desc = "Delete to end of line without yanking" })
 -- map("x", "<Leader>p", '"_dP', { desc = "Paste" })
 
-map({""}, "<Del>", '"_x', { desc = "which_key_ignore" })
-map("n", '<BS>', '"_X', { desc = "which_key_ignore" })
-map({""}, "x", '"_x', { desc = "which_key_ignore" })
-map({""}, "X", '"_X', { desc = "which_key_ignore" })
+map({'n', 'v'}, "<Del>", '"_x', { desc = "which_key_ignore" })
+map({'n', 'v'}, "<BS>", '"_X', { desc = "which_key_ignore" })
+map({'n', 'v'}, "x", '"_x', { desc = "which_key_ignore" })
+map({'n', 'v'}, "X", '"_X', { desc = "which_key_ignore" })
 
 -- Clipboard operators
-map('', "cp", '"+p',  { desc = "Paste from clipboard" })
-map('', "cP", '"+P',  { desc = "Paste from clipboard" })
-map('v', "cP", '"+P', { desc = "Paste from clipboard" })
-map('', "cd", '"+d',  { desc = "Delete to clipboard" })
-map('', "cD", '"+D',  { desc = "Delete end of line to clipboard" })
-map('', "cy", '"+y',  { desc = "Yank to clipboard" })
-map('', "cY", '"+Y',  { desc = "Yank end of line to clipboard" })
+map({'n', 'v'}, "cp", '"+p',  { desc = "Paste from clipboard" })
+map({'n', 'v'}, "cP", '"+P',  { desc = "Paste from clipboard" })
+map({'n', 'v'}, "cd", '"+d',  { desc = "Delete to clipboard" })
+map({'n', 'v'}, "cD", '"+D',  { desc = "Delete end of line to clipboard" })
+map({'n', 'v'}, "cy", '"+y',  { desc = "Yank to clipboard" })
+map({'n', 'v'}, "cY", '"+Y',  { desc = "Yank end of line to clipboard" })
 
 -- Easier to type registers
-map('', "_", '"_', { desc = "Use _ register" })
-map({""}, "+", '"+', { desc = "Use + register" })
+map({'n', 'v'}, "_", '"_', { desc = "Use _ register" })
+map({'n', 'v'}, "+", '"+', { desc = "Use + register" })
 
 -- map("", '<Leader>y', '"+y', { desc = "Copy to clipboard" })
 -- map("", '<Leader>Y', '"+Y', { desc = "Copy line to clipboard" })
@@ -96,7 +95,7 @@ map({""}, "+", '"+', { desc = "Use + register" })
 -- vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
 
 -- GUI style insert mappings
-map('', '<S-Insert>', '"*P', { desc = "Paste selection" })
+map({'n', 'v'}, '<S-Insert>', '"*P', { desc = "Paste selection" })
 map('i', '<S-Insert>', '<C-o>"*P')
 map('t', '<S-Insert>', '<C-\\><C-n>"*Pi')
 map('c', '<S-Insert>', '<C-R>*')
@@ -226,10 +225,10 @@ end, { desc = "Reload settings" })
 
 -- Restore default mappings ------------------------------
 
-vim.keymap.set({ 'n', 'v' }, '<up>', '<nop>', { desc = "Disable arrow key" })
-vim.keymap.set({ 'n', 'v' }, '<down>', '<nop>', { desc = "Disable arrow key" })
-vim.keymap.set({ 'n', 'v' }, '<left>', '<nop>', { desc = "Disable arrow key" })
-vim.keymap.set({ 'n', 'v' }, '<right>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set({'n', 'v'}, '<up>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set({'n', 'v'}, '<down>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set({'n', 'v'}, '<left>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set({'n', 'v'}, '<right>', '<nop>', { desc = "Disable arrow key" })
 
 vim.schedule(function()
   -- Check if the mappings exist before deleting them
@@ -320,7 +319,7 @@ if vim.g.neovide then
   -- Clipboard commands similar to terminals.
 
   -- paste main
-  map('', '<C-S-v>', '"+P', { desc = "Paste from clipboard" })
+  map({'n', 'v'}, '<C-S-v>', '"+P', { desc = "Paste from clipboard" })
   map('i', '<C-S-v>', '<C-o>"+P')
   map('t', '<C-S-v>', '<C-\\><C-n>"+Pi')
   vim.keymap.set('c', '<C-S-v>', '<C-R>+')
