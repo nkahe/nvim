@@ -28,8 +28,6 @@ require("config.user-commands")
 
 -- NOTE: For mappings "{ noremap = true }" is the default so no need to add that.
 
-
-
 -- Registers ----------------------------------------------
 
 -- x is same as d so it actually cuts to clipboard.
@@ -204,8 +202,8 @@ map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
 map("i", '<C-BS>', '<C-w>', { silent = true })
 map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
-map({"n"}, "<C-Up>", "<C-y>", { desc = "Scroll up" })
-map({"n"}, "<C-Down>", "<C-e>", { desc = "Scroll down" })
+-- map({"n"}, "<C-Up>", "<C-y>", { desc = "Scroll up" })
+-- map({"n"}, "<C-Down>", "<C-e>", { desc = "Scroll down" })
 
 -- map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
 
@@ -243,10 +241,11 @@ end, { desc = "◨ Open in vertical split" })
 
 -- Windows -----------------------------------------------
 
-map("n", "<C-M-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
-map("i", "<C-A-Up>", "<esc><cmd>m .-22<cr>", { desc = "Increase Window Width" })
-map("n", "<C-M-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
-map("n", "<C-M-Down>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+-- Used for multiple cursors.
+-- map("n", "<C-M-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+-- map("i", "<C-M-Up>", "<esc><cmd>m .-22<cr>", { desc = "Increase Window Width" })
+-- map("n", "<C-M-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+-- map("n", "<C-M-Down>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
 
 
 -- GUI --------------------------------------------------
@@ -266,12 +265,11 @@ end
 
 -- Whichkey descriptions
 
-local wk = require("which-key")
-
-wk.add({
-  { "[[", desc = "Previous reference" },
-  { "]]", desc = "Next reference" },
-}, { mode = "n" })
+-- local wk = require("which-key")
+-- wk.add({
+--   { "[[", desc = "Previous reference" },
+--   { "]]", desc = "Next reference" },
+-- }, { mode = "n" })
 
 -- Minor tweaks ------------------------------------------
 
