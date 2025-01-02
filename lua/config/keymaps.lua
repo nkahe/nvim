@@ -149,15 +149,18 @@ map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
 
 -- map('n', '<Leader>gl', function() Snacks.lazygit() end, { desc = "LazyGit", silent = false })
 
+-- Search word under cursor and change it. n to go next and . to repeat.
+vim.keymap.set("n", "c*", "g*Ncgn", { noremap = true })
+
 -- Help pages: <CR> to open links in addition to C-]
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "help",
+  pattern = { "help", "man" },
   callback = function()
     vim.api.nvim_buf_set_keymap(0, "n", "<CR>", "<C-]>", { silent = true })
   end,
 })
 
--- Restore default mappings ------------------------------
+-- Restore some default mappings ------------------------------
 
 vim.keymap.set({'n', 'v'}, '<up>', '<nop>', { desc = "Disable arrow key" })
 vim.keymap.set({'n', 'v'}, '<down>', '<nop>', { desc = "Disable arrow key" })
@@ -207,8 +210,24 @@ map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
 -- map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
 
-
 map('n', "<LocalLeader>r", "<cmd>Neotree reveal_force_cwd<CR>", { desc = "Reveal in Neotree" })
+
+
+-- Function to capture keypress and show its mapping
+function capture_keypress()
+  -- Wait for the next key press
+  local key = vim.fn.getchar()
+
+  -- Convert the key to a string representation
+  local key_str = vim.fn.nr2char(key)
+
+  -- Show what the key does
+  vim.cmd('verbose map ' .. key_str)
+end
+
+-- Create a key mapping tuhat calls the function
+vim.api.nvim_set_keymap('n', '<leader>k', ':lua capture_keypress()<CR>',
+  { desc = "Show what mapping does", noremap = true, silent = true })
 
 -- Terminal ------------------------------------------------
 
@@ -253,7 +272,7 @@ end, { desc = "◨ Open in vertical split" })
 if vim.g.neovide then
   -- Clipboard commands similar to terminals.
 
-  -- paste main
+  -- Paste main clipboard
   map({'n', 'v'}, '<C-S-v>', '"+P', { desc = "Paste from clipboard" })
   map('i', '<C-S-v>', '<C-o>"+P')
   map('t', '<C-S-v>', '<C-\\><C-n>"+Pi')
