@@ -49,7 +49,6 @@ return {
       
       -- Yank the selection without modifying it
       vim.api.nvim_command(string.format("silent %d,%dy+", start_pos[2], end_pos[2]))
-      end,
     rtxt = "<C-c>",
   },
 

@@ -45,7 +45,7 @@ return {
     cmd =  function()
       -- Normal mode
       vim.cmd('normal! "+yy')
-  end,
+    end,
     rtxt = "<C-c>",
   },
 
