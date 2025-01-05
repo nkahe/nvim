@@ -232,8 +232,6 @@ map("n", "<Leader>tb", "<CMD>terminal<CR>", { desc = "Open in new buffer" })
 
 -- Not all terminals support this.
 map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-map("t", "q", "<cmd>close<cr>", { desc = "Hide Terminal" })
--- "q" also quits terminal window in normal mode.
 
 -- map("n", "<C-Space>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
 -- map("t", "<C-`>", "<C-\\><C-n><CMD>lua toggle_terminal()<CR>", { silent = true })
