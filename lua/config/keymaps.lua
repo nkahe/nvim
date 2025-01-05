@@ -210,9 +210,6 @@ map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
 -- map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
 
-map('n', "<LocalLeader>r", "<cmd>Neotree reveal_force_cwd<CR>", { desc = "Reveal in Neotree" })
-
-
 -- Function to capture keypress and show its mapping
 function capture_keypress()
   -- Wait for the next key press
@@ -227,22 +224,13 @@ end
 
 -- Create a key mapping tuhat calls the function
 vim.api.nvim_set_keymap('n', '<leader>k', ':lua capture_keypress()<CR>',
-  { desc = "Show what mapping does", noremap = true, silent = true })
+  { desc = "Show mapping of key", noremap = true, silent = true })
 
 -- Terminal ------------------------------------------------
 
 map("n", "<Leader>tb", "<CMD>terminal<CR>", { desc = "Open in new buffer" })
 
-map("n", "<Leader>tt", "<CMD>lua Snacks.terminal.toggle()<CR>", { desc = "Toggle terminal" })
-
-vim.keymap.set("n", "<leader>tf", function()
-  -- A command needs specified to open in float.
-  local shell = vim.o.shell
-  require("snacks.terminal").open(shell, {})
-end, { desc = "Floating terminal" })
-
 -- Not all terminals support this.
-map("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
 map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 map("t", "q", "<cmd>close<cr>", { desc = "Hide Terminal" })
 -- "q" also quits terminal window in normal mode.

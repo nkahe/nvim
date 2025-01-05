@@ -1,4 +1,7 @@
 
+vim.keymap.set('n', "<LocalLeader>r", "<cmd>Neotree reveal_force_cwd<CR>",
+  { desc = "Reveal in Neotree" })
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   opts = {

@@ -1,4 +1,15 @@
 
+
+vim.keymap.set("n", "<C-`>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
+vim.keymap.set("n", "<Leader>tt", "<CMD>lua Snacks.terminal.toggle()<CR>", { desc = "Toggle terminal" })
+
+vim.keymap.set("n", "<leader>tf", function()
+  -- A command needs specified to open in float.
+  local shell = vim.o.shell
+  require("snacks.terminal").open(shell, {})
+end, { desc = "Floating terminal" })
+
+
 -- Timeout for notifications longer so can actually read them.
 return {
   "folke/snacks.nvim",
