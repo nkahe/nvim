@@ -162,9 +162,9 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Restore some default mappings ------------------------------
 
-vim.keymap.set({'n', 'v'}, '<up>', '<nop>', { desc = "Disable arrow key" })
-vim.keymap.set({'n', 'v'}, '<down>', '<nop>', { desc = "Disable arrow key" })
-vim.keymap.set({'n', 'v'}, '<left>', '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set({'n', 'v'}, '<up>',    '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set({'n', 'v'}, '<down>',  '<nop>', { desc = "Disable arrow key" })
+vim.keymap.set({'n', 'v'}, '<left>',  '<nop>', { desc = "Disable arrow key" })
 vim.keymap.set({'n', 'v'}, '<right>', '<nop>', { desc = "Disable arrow key" })
 
 vim.schedule(function()
@@ -189,9 +189,9 @@ end
 
 -- Moving lines
 map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
-map("n", "<A-Up>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
+map("n", "<A-Up>",   "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
 map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
-map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
+map("i", "<A-Up>",   "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 -- map("v", "<A-Down>", "<cmd>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
 -- map("v", "<A-Up>", "<cmd>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 vim.keymap.set("v", "<A-Down>", ":m '>+1<cr>gv=gv", { silent = true, desc = "Move down" })
