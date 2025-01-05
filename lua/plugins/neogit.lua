@@ -27,5 +27,16 @@ return {
       staged_diff_split_kind = "split",
       spell_check = false,
     },
-  }
+  },
+  -- "ascii"   is the graph the git CLI generates
+  -- "unicode" is the graph like https://github.com/rbong/vim-flog
+  -- "kitty"   is the graph like https://github.com/isakbm/gitgraph.nvim - use https://github.com/rbong/flog-symbols if you don't use Kitty
+  graph_style = "unicode",
+  signs = {
+    -- { CLOSED, OPENED }
+    hunk = { "", "" },
+    item = { "", "" },
+   -- item = { ">", "v" },
+    section = { "", "" },
+  },
 }
