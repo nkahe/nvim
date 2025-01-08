@@ -8,20 +8,6 @@ local map = vim.keymap.set
 -- Mappings that are only used when run embedded in VSCode.
 if vim.g.vscode then
   require("config.vscode")
-else
-  -- local general_menu = require("config.menus.menu")
-  -- vim.keymap.set( "n", "<RightMouse>", function()
-  --   vim.cmd.exec '"normal! \\<RightMouse>"'
-  --   -- Which menu to open.
-  --   local options = vim.bo.ft == "NvimTree" and "nvimtree" or general_menu
-  --   require("menu").open(options, { mouse = true })
-  -- end, {})
-  -- vim.keymap.set( "v", "<RightMouse>", function()
-  --   vim.cmd.exec '"normal! \\<RightMouse>"'
-  --   -- Which menu to open.
-  --   local visual_menu = require("config.menus.visual")
-  --   require("menu").open(visual_menu, { mouse = true })
-  -- end, {})
 end
 
 require("config.user-commands")
@@ -30,35 +16,6 @@ require("config.user-commands")
 
 -- Registers ----------------------------------------------
 
--- x is same as d so it actually cuts to clipboard.
--- map("", "xx", "dd", { desc = "Cut" })
--- map({'n', 'v'}, "x", "d", { desc = "Cut" })
--- map("", "X", "D", { desc = "Cut end of line" })
-
--- d to use unnamed register so it doesn't populate clipboard.
--- map({""}, "d", '""d', { desc = "Delete" })
--- map({""}, "dd", '""dd', { desc = "Delete line" })
--- map({""}, "D", '""D', { desc = "Delete to end of line" })
-
--- Paste and indent
--- vim.keymap.set({ "n", "v" }, "p", "p`[v`]=`]")
-
--- Delete a character or insert '-' after insert character -command (plugin).
--- vim.keymap.set("", "-", function()
---   local keys = vim.fn.getcmdtype() == ":" and vim.fn.getcmdline() or ""
---   if keys:sub(-1) == "+" then
---     return "-"
---   else
---     return vim.api.nvim_replace_termcodes('"_x', true, true, true)
---   end
--- end, { expr = true, desc = "Delete character" })
-
--- map({""}, "-", '"_x', { desc = "Delete character" })
-
--- Make different deletions not to yank
-
--- map({""}, "c", '"_c', { desc = "which_key_ignore" })
--- map({""}, "C", '"_C', { desc = "which_key_ignore" })
 -- Deleting without yanking
 
 map({'n', 'v'}, "<Leader>d", '"_d', { desc = "Delete without yanking" })
@@ -85,15 +42,6 @@ map({'n', 'v'}, "cD", '"+D',  { desc = "Delete end of line to clipboard" })
 map({'n', 'v'}, "cy", '"+y',  { desc = "Yank to clipboard" })
 map({'n', 'v'}, "cY", '"+Y',  { desc = "Yank end of line to clipboard" })
 
--- Easier to type registers
-map({'n', 'v'}, "_", '"_', { desc = "Use _ register" })
-map({'n', 'v'}, "+", '"+', { desc = "Use + register" })
-
--- map("", '<Leader>y', '"+y', { desc = "Copy to clipboard" })
--- map("", '<Leader>Y', '"+Y', { desc = "Copy line to clipboard" })
-
--- vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
-
 -- GUI style insert mappings
 map({'n', 'v'}, '<S-Insert>', '"*P', { desc = "Paste selection" })
 map('i', '<S-Insert>', '<C-o>"*P')
@@ -105,8 +53,6 @@ map('x', '<C-Insert>', '"+y')
 -- For GUI only is in section at end part of file.
 
 -- Adding lines --------------------------------------------
-
--- <Leader>o/O rivin aloitus ilman continuatiota?
 
 local function add_blank_line(direction)
   local repeated = vim.fn["repeat"]({ "" }, vim.v.count1)
@@ -140,15 +86,6 @@ end, { desc = "Add empty line below", expr = true, silent = true })
 map({"n", "i"}, "<M-Right>", "<cmd>bnext<CR>", { silent = true })
 map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
 
--- map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
-
--- In nordic keyboard easy to reach.
--- map("", "ö", "$", { noremap = false, silent = false, desc = "To end of line" })
--- vim.api.nvim_set_keymap("", "ö", "$", { noremap = false, silent = false, desc = "which_key_ignore" })
--- vim.api.nvim_set_keymap("n", "ä", "", { noremap = false, silent = false })
-
--- map('n', '<Leader>gl', function() Snacks.lazygit() end, { desc = "LazyGit", silent = false })
-
 -- Search word under cursor and change it. n to go next and . to repeat.
 vim.keymap.set("n", "c*", "g*Ncgn", { noremap = true })
 
@@ -178,7 +115,7 @@ vim.schedule(function()
 end)
 
 --------------------------------------------------------------------------------
--- No VSCode mappings after this
+-- No VSCode compatible mappings after this
 --------------------------------------------------------------------------------
 
 if vim.g.vscode then
@@ -192,11 +129,8 @@ map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move D
 map("n", "<A-Up>",   "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
 map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
 map("i", "<A-Up>",   "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
--- map("v", "<A-Down>", "<cmd>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
--- map("v", "<A-Up>", "<cmd>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 vim.keymap.set("v", "<A-Down>", ":m '>+1<cr>gv=gv", { silent = true, desc = "Move down" })
 vim.keymap.set("v", "<A-Up>", ":m '<-2<cr>gv=gv", { silent = true, desc = "Move up" })
-
 
 map("n", "<M-l>", "<cmd>bnext<CR>", { silent = true })
 map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
@@ -204,11 +138,6 @@ map("n", "<M-h>", "<cmd>bprevious<CR>", { silent = true })
 -- Add common shortcuts from GUI apps.
 map("i", '<C-BS>', '<C-w>', { silent = true })
 map("i", '<C-Del>', '<C-o>dw', { silent = true })
-
--- map({"n"}, "<C-Up>", "<C-y>", { desc = "Scroll up" })
--- map({"n"}, "<C-Down>", "<C-e>", { desc = "Scroll down" })
-
--- map('n', '<Leader>sp', "<Cmd>Telescope projects<CR>", { desc = "Projects", silent = true })
 
 -- Function to capture keypress and show its mapping
 function capture_keypress()
@@ -233,9 +162,6 @@ map("n", "<Leader>tb", "<CMD>terminal<CR>", { desc = "Open in new buffer" })
 -- Not all terminals support this.
 map("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 
--- map("n", "<C-Space>", "<CMD>lua Snacks.terminal.toggle()<CR>", { silent = true})
--- map("t", "<C-`>", "<C-\\><C-n><CMD>lua toggle_terminal()<CR>", { silent = true })
-
 -- Tap C-\ twice to exit terminal mode
 map('t', [[<C-\><C-\>]], [[<C-\><C-n>]], { silent = true })
 
@@ -244,17 +170,9 @@ vim.keymap.set("n", "<leader>tv", function()
 end, { desc = "◨ Open in vertical split" })
 
 
--- Windows -----------------------------------------------
-
--- Used for multiple cursors.
--- map("n", "<C-M-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
--- map("i", "<C-M-Up>", "<esc><cmd>m .-22<cr>", { desc = "Increase Window Width" })
--- map("n", "<C-M-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
--- map("n", "<C-M-Down>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
-
-
 -- GUI --------------------------------------------------
 
+-- Neovide
 if vim.g.neovide then
   -- Clipboard commands similar to terminals.
 
@@ -267,14 +185,6 @@ if vim.g.neovide then
   -- Copy
   map('v', '<C-S-c>', '"+y')
 end
-
--- Whichkey descriptions
-
--- local wk = require("which-key")
--- wk.add({
---   { "[[", desc = "Previous reference" },
---   { "]]", desc = "Next reference" },
--- }, { mode = "n" })
 
 -- Minor tweaks ------------------------------------------
 
