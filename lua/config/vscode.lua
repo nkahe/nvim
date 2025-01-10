@@ -1,12 +1,9 @@
 
 -- This file is sourced if run in embedded VSCode instance.
 
--- vim.cmd("echo 'sourced vscode.lua'")
-
 -- vim.keymap.set({ 'n', 'x' }, '<Space>', function()
 --     vim.fn.VSCodeNotify('whichkey.show')
 --   end, { silent = true, desc = "Show WhichKey" })
---
 
 vim.keymap.set('n', '<leader><leader>', function()
     vim.fn.VSCodeNotify('workbench.action.quickOpen')
@@ -15,7 +12,6 @@ vim.keymap.set('n', '<leader><leader>', function()
 vim.keymap.set({ 'n', 'x' }, '<Space>e', function()
     vim.fn.VSCodeNotify('workbench.action.toggleSidebarVisibility')
   end, { silent = true, desc = "Toggle Sidebar Visibility" })
-
 
 vim.keymap.set({ 'n', 'x' }, '<Space>fr', function()
     vim.fn.VSCodeNotify('workbench.action.openRecent')

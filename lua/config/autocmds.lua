@@ -5,37 +5,6 @@
 -- Get Neovim's config home directory
 -- local config_dir = vim.fn.stdpath("config") .. "/lua/config/"
 
--- -- Set up an autocommand for sourcing files upon saving in the "lua/config/" directory
--- vim.api.nvim_create_autocmd("BufWritePost", {
---   pattern = config_dir .. "*.lua",
---   callback = function(args)
---     vim.cmd("source " .. args.file)
---     print("Sourced " .. args.file)
---   end,
---   desc = "Automatically source files on save in lua/config/",
--- })
-
--- vim.api.nvim_create_autocmd("BufWritePost", {
---   pattern = "lua/config/*.lua",
---   callback = function(args)
---     vim.cmd("source " .. args.file)
---     print("Sourced " .. args.file)
---   end,
---   desc = "Automatically source files on save in lua/config/",
--- })
-
-
--- Watches for saves specifically in the `lua/config/` directory
--- local config_dir_pattern = vim.fn.stdpath("config") .. "/lua/config/*.lua"
-
--- vim.api.nvim_create_autocmd("BufWritePost", {
---   pattern = config_dir_pattern,
---   callback = function(args)
---     vim.cmd("source " .. args.file)
---     print("Sourced " .. args.file)
---   end,
--- })
-
 -- show cursor line only in active window
 vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
   callback = function()
@@ -134,7 +103,6 @@ if Session_id ~= "" then
     callback = update_yakuake_title
   })
 end
-
 
 -- Always open QuickFix windows below current window
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
