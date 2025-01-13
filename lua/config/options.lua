@@ -3,16 +3,16 @@
 -- Add any additional options here
 
 local opt = vim.opt
+local g = vim.g
 
 -- No format on save.
-vim.g.autoformat = false
+g.autoformat = false
 
--- LazyVim default:
--- vim.opt.clipboard = "unnamedplus"
+g.maplocalleader = 'ö'
 
-vim.g.maplocalleader = 'ö'
-
--- Use Linux primary, selection clipboard by default.
+-- Use Linux primary, selection clipboard by default. Problem with LazyVim's
+-- default "unnamedplus", is that it pollutes the main clipboard history with
+-- unnecessary clutter.
 opt.clipboard = "unnamed"
 
 -- comma-separated list of screen columns that are highlighted with
@@ -20,7 +20,7 @@ opt.clipboard = "unnamed"
 opt.colorcolumn = "80"
 
 -- When on, the ":substitute" flag 'g' is default on.  This means that
--- all matches in a line are substituted instead of one.  
+-- all matches in a line are substituted instead of one.
 opt.gdefault = true
 
 opt.guifont = { "FiraCode Nerd Font", ":h12" }
@@ -44,7 +44,7 @@ opt.spell = false
 opt.title = true
 
 -- Cursor can go paste last character and after block
-vim.opt.virtualedit:append("block,onemore")
+opt.virtualedit:append("block,onemore")
 
 -- Optionally you can use an autocommand to automatically open floating diagnostics for LSP errors
 -- vim.cmd([[
@@ -56,8 +56,8 @@ vim.opt.virtualedit:append("block,onemore")
 
 -- GUI ------------------------------------------
 
-if vim.g.neovide then
+if g.neovide then
   -- Make Neovide animations a lot faster and less distracting.
-  vim.g.neovide_cursor_animation_length = 0.03
-  vim.g.neovide_cursor_trail_size = 0.08
+  g.neovide_cursor_animation_length = 0.03
+  g.neovide_cursor_trail_size = 0.08
 end
