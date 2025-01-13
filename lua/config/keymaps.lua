@@ -122,6 +122,13 @@ if vim.g.vscode then
   return
 end
 
+vim.api.nvim_set_keymap(
+  "v",
+  "<LocalLeader>w",
+  ":!fmt -w 80<CR>",
+  { desc = "Wrap text to 80 char", noremap = true, silent = true }
+)
+
 -- Alt mappings can sometimes trigger with <esc> when using in terminal.
 
 -- Moving lines
