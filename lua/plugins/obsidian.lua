@@ -19,11 +19,11 @@ return {
     workspaces = {
       {
         name = "personal",
-        path = "~/Documents/notes",
+        path = "~/Documents/private_notes",
       },
       {
         name = "nextcloud",
-        path = "~/Nextcloud/Notes",
+        path = "~/Nextcloud/notes",
       },
     },
     "use_alias_only",
