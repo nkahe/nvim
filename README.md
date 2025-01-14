@@ -46,3 +46,4 @@ In addition to many plugins included in LazyVim:
 
 - FiraCode NerdFont
 - [LazyVim requirements](https://www.lazyvim.org/)
+- Some keymappings use keys found in Nordic and German keyboard layout.

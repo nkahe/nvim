@@ -1,6 +1,8 @@
 -- bagohart/Vim-Insert-Single-Character
 -- https://github.com/bagohart/vim-insert-append-single-character
 
+-- For nordic and german keyboard layouts.
+
 return {
   "bagohart/vim-insert-append-single-character",
   keys = {
