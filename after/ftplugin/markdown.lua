@@ -3,3 +3,4 @@
 
 -- vim.opt.textwidth = 90     -- Set the soft wrap column to 100 characters
 vim.opt.colorcolumn = "90"
+vim.cmd('Wrapwidth 90')
