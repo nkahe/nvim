@@ -195,9 +195,9 @@ end
 
 -- Minor tweaks ------------------------------------------
 
--- Accidentally press on Shift+{arrow} to just move cursor in Visual mode
-map("x", "<S-Down>", "j")
-map("x", "<S-Up>", "k")
-map("x", "<S-Right>", "l")
-map("x", "<S-Left>", "h")
+-- Accidentally press on Shift+{arrow} to just move cursor.
+map({ "x", "n" }, "<S-Down>", "j")
+map({ "x", "n" }, "<S-Up>", "k")
+map({ "x", "n" }, "<S-Right>", "l")
+map({ "x", "n" }, "<S-Left>", "h")
 
