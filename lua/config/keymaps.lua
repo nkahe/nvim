@@ -147,7 +147,7 @@ map("i", '<C-BS>', '<C-w>', { silent = true })
 map("i", '<C-Del>', '<C-o>dw', { silent = true })
 
 -- Function to capture keypress and show its mapping
-function capture_keypress()
+function Capture_keypress()
   -- Wait for the next key press
   local key = vim.fn.getchar()
 
@@ -159,7 +159,7 @@ function capture_keypress()
 end
 
 -- Create a key mapping tuhat calls the function
-vim.api.nvim_set_keymap('n', '<leader>k', ':lua capture_keypress()<CR>',
+vim.api.nvim_set_keymap('n', '<leader>k', ':lua Capture_keypress()<CR>',
   { desc = "Show mapping of key", noremap = true, silent = true })
 
 -- Terminal ------------------------------------------------
