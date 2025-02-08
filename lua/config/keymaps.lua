@@ -82,6 +82,10 @@ end, { desc = "Add empty line below", expr = true, silent = true })
 
 -- Misc ---------------------------------------------------
 
+-- Easier to type.
+map("", "gh", '^', { desc = "To the first non-blank character of the line" })
+map("", "gl", '$', { desc = "To the end of the line" })
+
 -- Focus previous / next buffer
 map({"n", "i"}, "<M-Right>", "<cmd>bnext<CR>", { silent = true })
 map({"n", "i"}, "<M-Left>", "<cmd>bprevious<CR>", { silent = true })
@@ -97,12 +101,12 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Restore some default mappings ------------------------------
+vim.keymap.set({'n', 'v'}, '<up>',    '<nop>')
+vim.keymap.set({'n', 'v'}, '<down>',  '<nop>')
+vim.keymap.set({'n', 'v'}, '<left>',  '<nop>')
+vim.keymap.set({'n', 'v'}, '<right>', '<nop>')
 
-vim.keymap.set({'n', 'v'}, '<up>',    '<nop>', { desc = "Disable arrow key" })
-vim.keymap.set({'n', 'v'}, '<down>',  '<nop>', { desc = "Disable arrow key" })
-vim.keymap.set({'n', 'v'}, '<left>',  '<nop>', { desc = "Disable arrow key" })
-vim.keymap.set({'n', 'v'}, '<right>', '<nop>', { desc = "Disable arrow key" })
+-- Restore some default mappings ------------------------------
 
 vim.schedule(function()
   -- Check if the mappings exist before deleting them
