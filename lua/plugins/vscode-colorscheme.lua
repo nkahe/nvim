@@ -25,10 +25,22 @@ return {
         RenderMarkdownH3Bg = { bg = '#242b2b' },
         RenderMarkdownH4Bg = { bg = '#172830' },
 
+        -- By default Snacks Explorer tree and directory names are too dark.
+        -- Make them same as other background.
+        SnacksPickerTree = {
+          bg = '#252525',
+        },
+        SnacksPickerDirectory = {
+          bg ='#252525'
+        },
+        SnacksPickerCol = {
+          bg ='#252525'
+        },
+
       -- Define a highlight group for terminal background. These are used
         -- in autocmds.lua
       TermBackground = { bg = "#010b0d" },
-      TermCursorLine = { bg = "#010b0d" }
+      TermCursorLine = { bg = "#010b0d" },
       }
     }
 
