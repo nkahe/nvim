@@ -34,5 +34,12 @@ return {
         },
       },
     },
+    picker = {
+      sources = {
+        files = {
+          hidden = true
+        }
+      }
+    }
   },
 }
