@@ -38,7 +38,10 @@ return {
       sources = {
         files = {
           hidden = true
-        }
+        },
+        explorer = {
+          diagnostics = false
+        },
       }
     }
   },
