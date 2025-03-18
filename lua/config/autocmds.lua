@@ -5,6 +5,32 @@
 -- Get Neovim's config home directory
 -- local config_dir = vim.fn.stdpath("config") .. "/lua/config/"
 
+-- Automatic file marks.
+-- Converted from https://gist.github.com/romainl/3e0cb99343c72d04e9bc10f6d76ebbef
+local automatic_marks = vim.api.nvim_create_augroup("AutomaticMarks", { clear = true })
+
+local mappings = {
+    { pattern = { "*.css", "*.scss" }, command = "normal! mC" },
+    { pattern = { ".env*"  }, command = "normal! mE" },
+    { pattern = { "*.html" }, command = "normal! mH" },
+    { pattern = { "*.js", "*.ts" }, command = "normal! mJ" },
+    { pattern = { "*.lua" }, command = "normal! mL" },
+    { pattern = { "*.md"  }, command = "normal! mM" },
+    { pattern = { "*.sh"  }, command = "normal! mS" },
+    { pattern = { "*.vue" }, command = "normal! mV" },
+    { pattern = { "*.yml", "*.yaml" }, command = "normal! mY" },
+    { pattern = { "*.zsh" }, command = "normal! mZ" },
+}
+
+for _, map in ipairs(mappings) do
+    vim.api.nvim_create_autocmd("BufLeave", {
+        group = automatic_marks,
+        pattern = map.pattern,
+        command = map.command,
+    })
+end
+
+
 -- show cursor line only in active window
 vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
   callback = function()
