@@ -12,7 +12,7 @@ if exists(':GuiFont')
   " GuiFont! FiraCode\ Nerd\ Font:h13
 endif
 
-set guioptions=mr
+" set guioptions=mr
 
 if exists(':GuiPopupmenu')
     GuiPopupmenu 1
