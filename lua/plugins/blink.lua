@@ -14,6 +14,7 @@ return {
       },
     },
     keymap = {
+      -- Gave error for some reason.
       -- preset = "super-tab"
       ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
       ['<C-e>'] = { 'hide', 'fallback' },

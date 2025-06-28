@@ -52,34 +52,6 @@ map('x', '<C-Insert>', '"+y')
 
 -- For GUI only is in section at end part of file.
 
--- Adding lines --------------------------------------------
-
-local function add_blank_line(direction)
-  local repeated = vim.fn["repeat"]({ "" }, vim.v.count1)
-  local line = vim.api.nvim_win_get_cursor(0)[1]
-  if direction == "above" then
-    line = line - 1
-  elseif direction == "below" then
-  else
-    error("Invalid direction: " .. tostring(direction))
-  end
-  vim.api.nvim_buf_set_lines(0, line, line, true, repeated)
-end
-
--- Expose the function globally for operatorfunc
-_G.add_blank_line_above = function() add_blank_line("above") end
-_G.add_blank_line_below = function() add_blank_line("below") end
-
-vim.keymap.set('n', '[<Space>', function()
-  vim.go.operatorfunc = "v:lua.add_blank_line_above"
-  return 'g@l'
-end, { desc = "Add empty line above", expr = true, silent = true })
-
-vim.keymap.set('n', ']<Space>', function()
-  vim.go.operatorfunc = "v:lua.add_blank_line_below"
-  return 'g@l'
-end, { desc = "Add empty line below", expr = true, silent = true })
-
 -- Misc ---------------------------------------------------
 
 -- Easier to type.
