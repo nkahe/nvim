@@ -6,15 +6,16 @@ return {
       ghost_text = {
         enabled = false,
       },
-      -- Insert completion item on selection, don't select by default
+      -- Don't insert completion item on selection, don't select by default
       list = {
         selection = {
+          preselect = false,
           auto_insert = false
         }
       },
     },
     keymap = {
-      -- Gave error for some reason.
+      -- Gave error for some reason, so mappings are set manually below.
       -- preset = "super-tab"
       ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
       ['<C-e>'] = { 'hide', 'fallback' },
