@@ -78,6 +78,7 @@ vim.keymap.set({'n', 'v'}, '<down>',  '<nop>')
 vim.keymap.set({'n', 'v'}, '<left>',  '<nop>')
 vim.keymap.set({'n', 'v'}, '<right>', '<nop>')
 
+
 -- Restore some default mappings ------------------------------
 
 vim.schedule(function()
@@ -152,6 +153,24 @@ vim.keymap.set("n", "<leader>tv", function()
   vim.cmd("vsplit | terminal")
 end, { desc = "◨ Open in vertical split" })
 
+
+
+-- WhichKey descriptions --------------------------------------
+
+-- Neovim 0.11.0 added these but aren't yet included in Lazyvim.
+
+-- lua/config/keymaps.lua
+local wk = require("which-key")
+
+wk.add({
+  -- Normal mode LSP keys
+  { "grn", vim.lsp.buf.rename, desc = "Rename" },
+  { "grr", vim.lsp.buf.references, desc = "References" },
+  { "gri", vim.lsp.buf.implementation, desc = "Implementation" },
+  { "grt", vim.lsp.buf.type_definition, desc = "Type definition" },
+  { "gO", vim.lsp.buf.document_symbol, desc = "Document Symbols" },
+  { "gra", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" } }
+})
 
 -- GUI --------------------------------------------------
 
